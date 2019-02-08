@@ -1,0 +1,23 @@
+$font-stak: Helvetica, sans-serif;
+$primary-color: #333;
+
+h1{
+  color: $primary-color;
+}
+
+@mixin transform($property) {
+  -webkit-transform: $property;
+  -ms-transform: $property;
+  transform: $property;
+}
+
+%equal-heights {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.box { @include transform(rotate(30deg));
+@extend %equal-heights;
+
+}
+
