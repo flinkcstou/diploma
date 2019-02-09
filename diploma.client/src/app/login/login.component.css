@@ -13,8 +13,14 @@ input {
   padding: 0.2rem;
   outline: none;
   font-size: 1rem;
-}
+  text-align: center;
 
+}
+.row div{
+  margin-left: 700px;
+  width: 500px;
+  
+}
 
 button:hover {
   background-color: red;

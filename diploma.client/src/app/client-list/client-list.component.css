@@ -18,3 +18,11 @@ table tr td:nth-child(1), table tr th:nth-child(1) {
 table tr td:nth-child(2), table tr th:nth-child(2) {
   text-align: left;
 }
+div{
+  margin-left: 700px;
+}
+h3{
+  margin-right: 700px;
+  margin-bottom: 30px;
+  text-align: center;
+}
