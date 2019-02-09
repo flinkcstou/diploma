@@ -10,6 +10,7 @@ import {FormsModule} from "@angular/forms";
 import {ClientListComponent} from './client-list/client-list.component';
 import {ClientListService} from "./client-list/client-list.service";
 import { AboutComponent } from './about/about.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { AboutComponent } from './about/about.component';
     LoginComponent,
     ClientListComponent,
     AboutComponent,
+    RegistrationComponent,
   ],
   imports: [
     BrowserModule, HttpClientModule, FormsModule,
