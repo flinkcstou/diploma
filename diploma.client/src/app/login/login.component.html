@@ -3,13 +3,22 @@
 </div>
 <div *ngIf="!loginService.loading">
   <div *ngIf="!loginService.personDisplay">
-    <input type="text" placeholder="Username" [(ngModel)]="loginService.username">
-    <input type="password" placeholder="Password" [(ngModel)]="loginService.password">
-    <button (click)="loginService.login()">Войти</button>
+    <div class="row">
+      <div class="input-field col s3 ">
+        <input type="text" placeholder="Username" [(ngModel)]="loginService.username">
+        <input type="password" placeholder="Password" [(ngModel)]="loginService.password">
+
+        <button (click)="loginService.login()" class="btn waves-effect waves-light" type="submit" name="action">Submit
+        </button>
+      </div>
+    </div>
+
   </div>
 
   <div *ngIf="loginService.personDisplay">
     Вошли как {{loginService.personDisplay.username}}/{{loginService.personDisplay.fio}}
-    <a (click)="loginService.exit()" class="exit">Выйти</a>
+    <button (click)="loginService.exit()" class="btn waves-effect waves-light" type="submit" name="action">LOG OUT
+    </button>
+
   </div>
 </div>

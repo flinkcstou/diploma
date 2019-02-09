@@ -11,6 +11,8 @@ import {ClientListComponent} from './client-list/client-list.component';
 import {ClientListService} from "./client-list/client-list.service";
 import { AboutComponent } from './about/about.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { RegistrationComponent } from './registration/registration.component';
     ClientListComponent,
     AboutComponent,
     RegistrationComponent,
+    HomePageComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule, HttpClientModule, FormsModule,

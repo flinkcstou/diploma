@@ -1,4 +1,9 @@
+<div class="nav">
+  <app-home-page></app-home-page>
+</div>
+
 <div class="main">
+
   <h1>
     Добро пожаловать на {{ title }}!
   </h1>
@@ -6,4 +11,8 @@
   <app-registration></app-registration>
   <app-about *ngIf="login.canViewAbout"></app-about>
   <app-client-list *ngIf="login.canViewUsers"></app-client-list>
+</div>
+
+<div class="footer">
+<app-footer></app-footer>
 </div>

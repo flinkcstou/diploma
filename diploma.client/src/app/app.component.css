@@ -1,3 +1,14 @@
 .main {
   text-align: center;
+  background-color: aliceblue;
+}
+.nav{
+  text-align: center;
+}
+
+.footer{
+  margin: auto;
+  padding-top: 300px;
+  background-color: dimgrey;
+  -webkit-text-decoration-color: white;
 }
