@@ -1,13 +1,16 @@
 nav{
   background-color: lightslategray;
   margin: auto;
-  height: 120px;
+  height: 54px;
 
 }
 
 .btn{
   margin-right: 30px;
-  margin-top: -20px;
+  margin-top: 10px;
+  padding: 0 1rem;
+  background-color: #237b98;
+  font-size: .875rem;
 }
 
 button:hover {
@@ -15,11 +18,9 @@ button:hover {
 }
 img{
   margin-left: 50px;
-  padding: 15px;
-  max-height: 150px;
-  max-width: 200px;
-  width: 120px;
-  height: 120px;
+  //padding: 15px;
+  margin: 10px;
+  position: center;
 }
 h1{
   font-style: normal;

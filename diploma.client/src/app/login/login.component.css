@@ -1,6 +1,6 @@
 
 .exit {
-  border: 1px solid #47caff;
+  border: 1px solid #237b98;
   padding: 0.2rem;
   cursor: default;
 }
@@ -19,7 +19,7 @@ input {
 .row div{
   margin-left: 700px;
   width: 500px;
-  
+
 }
 
 button:hover {
@@ -32,5 +32,5 @@ button:focus {
 
 button:active {
   outline: none;
-  color: #a5b4b4;
+  color: #237b98;
 }
