@@ -13,6 +13,15 @@ import { AboutComponent } from './about/about.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { FooterComponent } from './footer/footer.component';
+import {RouterModule} from "@angular/router";
+
+ /*Routing dlya PAGES*/
+
+const routes =[
+  {path :'' , component:HomePageComponent },
+  {path :'login' , component:LoginComponent },
+  {path :'registr' , component:RegistrationComponent }
+]
 
 @NgModule({
   declarations: [
@@ -25,7 +34,7 @@ import { FooterComponent } from './footer/footer.component';
     FooterComponent,
   ],
   imports: [
-    BrowserModule, HttpClientModule, FormsModule,
+    BrowserModule, HttpClientModule, FormsModule,RouterModule.forRoot(routes , {enableTracing:true})
   ],
   providers: [HttpService, LoginService, ClientListService],
   bootstrap: [AppComponent]

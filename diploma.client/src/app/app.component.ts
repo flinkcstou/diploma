@@ -7,7 +7,7 @@ import {LoginService} from "./login/login.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'diploma';
+
 
   constructor(public login: LoginService) {}
 }
