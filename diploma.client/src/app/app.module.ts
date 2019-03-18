@@ -20,9 +20,10 @@ import {ModalComponent} from "./modal/modal.component";
  /*Routing dlya PAGES*/
 
 const routes =[
-  {path :'' , component:HomePageComponent},
+  {path :'' , component:LoginComponent},
   {path :'login' , component:LoginComponent },
-  {path :'registr' , component:RegistrationComponent }
+  {path :'registr' , component:RegistrationComponent },
+  {path :'home-page' , component:HomePageComponent }
 ]
 @NgModule({
   declarations: [
