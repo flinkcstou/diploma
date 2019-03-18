@@ -4,13 +4,6 @@
 
 }
 
-.image {
-  height: 500px;
-  width: 100%;
-  margin-top: 0px;
-}
-img {
-  width: 100%;
-  height: 500px;
-  /*height: auto;*/
+app-modal{
+  position: absolute;
 }

@@ -14,15 +14,16 @@ import { RegistrationComponent } from './registration/registration.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { FooterComponent } from './footer/footer.component';
 import {RouterModule} from "@angular/router";
+import {NavbarComponent} from "./navbar/navbar.component";
+import {ModalComponent} from "./modal/modal.component";
 
  /*Routing dlya PAGES*/
 
 const routes =[
-  {path :'' , component:HomePageComponent },
+  {path :'' , component:HomePageComponent},
   {path :'login' , component:LoginComponent },
   {path :'registr' , component:RegistrationComponent }
 ]
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +33,8 @@ const routes =[
     RegistrationComponent,
     HomePageComponent,
     FooterComponent,
+    NavbarComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule, HttpClientModule, FormsModule,RouterModule.forRoot(routes , {enableTracing:true})

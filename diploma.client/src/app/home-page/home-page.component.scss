@@ -1,73 +1,15 @@
-nav{
-  background-color: lightslategray;
-  margin: auto;
-  height: 54px;
-
-}
-
-.btn{
-  margin-right: 30px;
-  margin-bottom: 5px;
-  padding: 0 1rem;
-  background-color: #237b98;
-  font-size: .875rem;
-}
-
-button:hover {
-  background-color: #333333;
-}
-img{
-  margin-left: 50px;
-  //padding: 15px;
-  margin: 10px;
-  position: center;
-}
-h1{
-  font-style: normal;
-  text-align: center;
-  text-decoration-color: slategrey;
-  color: #333333;
-}
-
-
 
 /*SLIDER CSS*/
 
-@import url('https://fonts.googleapis.com/css?family=Lato');
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Lato', sans-serif;
-  margin: 0;
-}
-
-.title {
-  background: rgba(255, 255, 255, 0.7);
-  color: #333;
-  position: fixed;
-  text-align: right;
-  top: 0;
-  right: 0;
-  padding: 10px 15px;
-  margin: 0;
-  z-index: 100;
-}
-
 .slider {
+  height: 740px;
+  width: 100%;
   position: relative;
-  overflow: hidden;
-  height: 100vh;
-  width: 100vw;
 }
-
 .slide {
   background-position: center center;
   background-size: cover;
   position: absolute;
-  top: 0;
   left: 100%;
   height: 100%;
   width: 100%;
@@ -104,43 +46,4 @@ body {
   letter-spacing: 1px;
 }
 
-.eraser {
-  background: #fff;
-  position: absolute;
-  transition: transform 0.7s ease-in-out;
-  top: 0;
-  left: 100%;
-  height: 100%;
-  width: 100%;
-  z-index: 100;
-}
 
-.eraser.active {
-  transform: translateX(-100%);
-}
-
-.buttons-container {
-  position: absolute;
-  bottom: 60px;
-  right: 20px;
-}
-
-.buttons-container button {
-  border: 2px solid #fff;
-  background-color: transparent;
-  color: #fff;
-  cursor: pointer;
-  padding: 8px 20px;
-}
-
-.buttons-container button:hover {
-  background-color: #fff;
-  color: #333;
-}
-
-@media (max-width: 400px) {
-  .slide .info {
-    top: 100px;
-    left: 10px;
-  }
-}

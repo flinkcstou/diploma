@@ -1,145 +1,38 @@
-<script src="slider.js" xmlns=""></script>
-
-<!--Import Google Icon Font-->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" xmlns="">
-<!-- Compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-<nav>
-  <div class="nav-wrapper">
-
-    <a class="brand-logo">
-      <img src="https://media.otstatic.com/img/logo-fb47603a815bb1cf3e89400ba14587f1.png">
-    </a>
-    <!--<h1>Online Reserve</h1>-->
-    <ul id="nav-mobile" class="right hide-on-med-and-down">
-
-      <li>
-        <button  class="btn waves-effect waves-light" type="submit" name="action"><a routerLink="/login" routerLinkActive="active">Login</a></button>
-      </li>
-      <li>
-
-        <button class="btn waves-effect waves-light" type="submit" name="action"> <a routerLink="/registr" routerLinkActive="active">Registration</a> </button>
-      </li>
-    </ul>
-  </div>
-</nav>
-
-<router-outlet></router-outlet>
 
 
-   <!--SLIDER -->
 <div class="slider">
   <div class="slider-container">
-    <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1491818689676-f257892134ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=960&q=80');">
+    <div class="slide active" style="background-image: url('/assets/qwer.jpg');">
       <div class="info">
-        <h1>Restourant View</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum.</p>
+        <h1>Restaurant </h1>
+        <p> Bok a table at your favourite restaurant.</p>
       </div>
-    </div>
-    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1499476902703-c086d838ef0d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80');">
-      <div class="info">
-        <h1>Forest View</h1>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Amet, vero earum perspiciatis officia</p>
+
+      <!--<div class="selectlist">
+      <div class="input-field col s12">
+        <select>
+          <option value="" disabled selected>Choose your option</option>
+          <option value="1">Option 1</option>
+          <option value="2">Option 2</option>
+          <option value="3">Option 3</option>
+        </select>
+        <label>Materialize Select</label>
       </div>
+      </div>-->
+
     </div>
-    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1534953196761-569fa264d8f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80');">
-      <div class="info">
-        <h1>Ocean View</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt recusandae unde autem</p>
-      </div>
-    </div>
-    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1474291102916-622af5ff18bb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80');">
-      <div class="info">
-        <h1>Nature View</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-      </div>
-    </div>
-    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1491818689676-f257892134ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=960&q=80');">
-      <div class="info">
-        <h1>Ocean View</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum.</p>
-      </div>
-    </div>
-    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1499476902703-c086d838ef0d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80');">
-      <div class="info">
-        <h1>Forest View</h1>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Amet, vero earum perspiciatis officia</p>
-      </div>
-    </div>
-    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1499778730421-fbb938480e4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80');">
-      <div class="info">
-        <h1>Flat View</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt recusandae.</p>
-      </div>
-    </div>
-  </div>
-  <div class="eraser"></div>
-  <div class="buttons-container">
-    <button id="previous"><i class="fa fa-arrow-left"></i></button>
-    <button id="next"><i class="fa fa-arrow-right"></i></button>
-  </div>
 </div>
+  </div>
 
-<!--
-<script>
-  const slides = document.querySelectorAll('.slider-container .slide');
-  const eraser = document.querySelector('.eraser');
-  const prev = document.getElementById('previous');
-  const next = document.getElementById('next');
-  const intervalTime = 5000;
-  const eraserActiveTime = 700;
-  let sliderInterval;
-
-
-  const nextSlide = () => {
-    eraser.classList.add('active');
-    setTimeout(() => {
-      const active = document.querySelector('.slide.active');
-    active.classList.toggle('active');
-    if(active.nextElementSibling) {
-      active.nextElementSibling.classList.toggle('active');
-    } else {
-      slides[0].classList.toggle('active');
-    }
-    setTimeout(() => {
-      eraser.classList.remove('active');
-  }, 200);
-  }, eraserActiveTime);
-  }
-
-  const prevSlide = () => {
-    eraser.classList.add('active');
-    setTimeout(() => {
-      const active = document.querySelector('.slide.active');
-    active.classList.toggle('active');
-    if(active.previousElementSibling) {
-      active.previousElementSibling.classList.toggle('active');
-    } else {
-      slides[slides.length-1].classList.toggle('active');
-    }
-    setTimeout(() => {
-      eraser.classList.remove('active');
-  }, 200);
-  }, eraserActiveTime);
-  }
-
-  next.addEventListener('click', () => {
-    nextSlide();
-  clearInterval(sliderInterval);
-  sliderInterval = setInterval(nextSlide, intervalTime);
+<script >
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems, options);
   });
 
-  prev.addEventListener('click', () => {
-    prevSlide();
-  clearInterval(sliderInterval);
-  sliderInterval = setInterval(nextSlide, intervalTime);
+  // Or with jQuery
+
+  $(document).ready(function(){
+    $('select').formSelect();
   });
-
-  sliderInterval = setInterval(nextSlide, intervalTime);
-
-  // Initial slide
-  setTimeout(nextSlide, 500);
-
-
 </script>
--->
