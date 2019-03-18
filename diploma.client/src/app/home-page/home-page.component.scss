@@ -31,8 +31,30 @@
   width: 300px;
   max-width: 100%;
 }
+.slide .qwer{
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #333;
+  padding: 20px 15px;
+  position: absolute;
+  opacity: 0;
+  top: 240px;
+  left: 400px;
+  text-align: center;
+  width: 1200px;
+  max-width: 100%;
+}
+
+.btn{
+  margin-left: 100px;
+
+}
 
 .slide.active .info{
+  opacity: 1;
+  transform: translateY(-40px);
+  transition: all 0.5s ease-in-out 0.6s;
+}
+.slide.active .qwer{
   opacity: 1;
   transform: translateY(-40px);
   transition: all 0.5s ease-in-out 0.6s;
