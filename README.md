@@ -1,5 +1,5 @@
 # greetgo.diploma
 
-Diploma from greetgo!
+Diploma project!
 
 Created from template: t-depinject-angular-java
