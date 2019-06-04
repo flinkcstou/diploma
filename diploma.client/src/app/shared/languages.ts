@@ -60,7 +60,7 @@ export class Languages {
     beforebooking: "Предазаказ",
     orderfooditem: "Заказ блюда",
     booking: "Бронирование",
-    canbookingplace: "Вы можете забронировать место или можете еще сделать предзаказ",
+    canbookingplace: "Вы можете просто забронировать место, а ещё можете сделать предзаказ.",
     orderno: "Номер заказа",
     customer: "Пользователь",
     pmethod: "Способ оплаты",
@@ -146,6 +146,8 @@ export class Languages {
     gotofood: "Блюдо: ",
     gotoauthor: "Автор: ",
     gotocomments: "Комментарии",
+    reserve: "Забронировать",
+
 
   };
   public EN_LANGUAGE = {
@@ -171,7 +173,7 @@ export class Languages {
     numberoftelephone: "Number of telephone",
     reservationtable: "Reservation table:",
     diploma: "Diploma",
-    orderfooditem: "Order food item",
+    orderfooditem: "Reservation",
     orderno: "Order no.",
     customer: "Customer",
     pmethod: "Pay method",
@@ -224,7 +226,7 @@ export class Languages {
     button: "Login",
     beforebooking: "Pre-order",
     booking: "Booking",
-    canbookingplace: "You can book a place or pre-order it.",
+    canbookingplace: "Press \"Pre-order\" button if you want to pre-order a food.",
     select: "Select",
     price: "Price",
     stillorder: "still order:",
@@ -293,5 +295,6 @@ export class Languages {
     gotocomments: "Comments",
     gotofood: "Food:: ",
     gotoauthor: "Author: ",
+    reserve: "Reserve",
   }
 }
