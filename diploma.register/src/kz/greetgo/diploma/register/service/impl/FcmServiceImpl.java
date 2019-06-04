@@ -4,7 +4,6 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.messaging.*;
-import com.google.firebase.messaging.AndroidConfig.Priority;
 import kz.greetgo.diploma.controller.model.NotificationEvent;
 import kz.greetgo.diploma.register.service.FcmService;
 import kz.greetgo.diploma.register.service.FcmTopic;
@@ -15,7 +14,6 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -46,19 +44,24 @@ public class FcmServiceImpl implements FcmService {
     ExecutionException,
     InterruptedException {
 
-    AndroidConfig androidConfig = AndroidConfig.builder()
+    /*AndroidConfig androidConfig = AndroidConfig.builder()
       .setTtl(Duration.ofMinutes(2).toMillis())
       .setCollapseKey(event.cardNumber)
-      .setPriority(Priority.HIGH)
+      .setPriority(AndroidConfig.Priority.HIGH)
       //.setNotification(AndroidNotification.builder().setTag(event.action).build())
       .build();
+    */
 
-    ApnsConfig apnsConfig = ApnsConfig.builder()
-      .setAps(Aps.builder().setCategory(event.cardNumber).setThreadId(event.cardNumber).build())
+    WebpushConfig webpushConfig = WebpushConfig.builder()
+      .putHeader("ttl", "300")
+      .setNotification(WebpushNotification.builder().setIcon("assets/img/food.png").build())
       .build();
 
-    Message message = Message.builder().putAllData(data).setToken(token)
-      .setApnsConfig(apnsConfig).setAndroidConfig(androidConfig)
+
+    Message message = Message.builder()
+      .putAllData(data)
+      .setToken(token)
+      .setWebpushConfig(webpushConfig)
       .setNotification(new Notification(event.title, event.body))
       .build();
 
@@ -72,18 +75,9 @@ public class FcmServiceImpl implements FcmService {
     ExecutionException,
     InterruptedException {
 
-    AndroidConfig androidConfig = AndroidConfig.builder()
-      .setTtl(Duration.ofMinutes(2).toMillis())
-      .setCollapseKey(event.cardNumber)
-      .setPriority(Priority.HIGH)
-      //.setNotification(AndroidNotification.builder().setTag("chuck").build())
-      .build();
-
-    ApnsConfig apnsConfig = ApnsConfig.builder()
-      .setAps(Aps.builder().setCategory(event.cardNumber).setThreadId(event.cardNumber).build()).build();
-
-    Message message = Message.builder().putAllData(data).setTopic(topic.name())
-      .setApnsConfig(apnsConfig).setAndroidConfig(androidConfig)
+    Message message = Message.builder()
+      .putAllData(data)
+      .setTopic(topic.name())
       .setNotification(
         new Notification(event.title, event.body))
       .build();

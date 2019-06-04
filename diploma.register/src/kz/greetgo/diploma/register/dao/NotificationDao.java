@@ -20,11 +20,8 @@ public interface NotificationDao {
   void unregisterDevice(@Param("registrationId") String registrationId);
 
 
-  @Select("select dn.registration_id\n" +
-    "from parent_child pc\n" +
-    "inner join device_notification dn on pc.parent=dn.person\n" +
-    "where pc.child = #{childId} and pc.notification = 1")
-  List<String> getParentTokensByChild(@Param("childId") Long childId);
+  @Select("select registration_id from device_notification where person=#{personId}")
+  List<String> getFcmRegIdByPersonId(@Param("personId") String personId);
 
   @Select("select registration_id from device_notification where person=#{personId}")
   Set<String> getRegisterTokensByParentId(@Param("personId") String personId);

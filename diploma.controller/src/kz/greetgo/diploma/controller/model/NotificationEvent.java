@@ -1,10 +1,8 @@
 package kz.greetgo.diploma.controller.model;
 
 public class NotificationEvent {
-  public String cardNumber;
   public String title;
   public String body;
-  public String action;
 
   public NotificationEvent() {
   }
@@ -12,10 +10,8 @@ public class NotificationEvent {
   @Override
   public String toString() {
     return "NotificationEvent{" +
-      "cardNumber='" + cardNumber + '\'' +
       ", title='" + title + '\'' +
       ", body='" + body + '\'' +
-      ", action='" + action + '\'' +
       '}';
   }
 }

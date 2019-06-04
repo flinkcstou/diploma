@@ -1,7 +1,10 @@
 package kz.greetgo.diploma.register.impl;
 
+import static java.util.stream.Collectors.joining;
 import kz.greetgo.depinject.core.Bean;
 import kz.greetgo.depinject.core.BeanGetter;
+import kz.greetgo.diploma.controller.model.Event;
+import kz.greetgo.diploma.controller.register.NotificationRegister;
 import kz.greetgo.diploma.controller.register.RestaurantOrderRegister;
 import kz.greetgo.diploma.controller.register.model.*;
 import kz.greetgo.diploma.register.beans.all.IdGenerator;
@@ -14,8 +17,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.joining;
-
 @Bean
 public class RestaurantOrderRegisterImpl implements RestaurantOrderRegister {
 
@@ -26,6 +27,8 @@ public class RestaurantOrderRegisterImpl implements RestaurantOrderRegister {
 	public BeanGetter<IdGenerator> idGenerator;
 
 	public BeanGetter<PasswordEncoder> passwordEncoder;
+
+	public BeanGetter<NotificationRegister> notificationRegister;
 
 
 	@Override
@@ -42,8 +45,7 @@ public class RestaurantOrderRegisterImpl implements RestaurantOrderRegister {
 	}
 
 	@Override
-	public void postOrderItems(Orders orders) {
-
+	public void postOrderItems(Orders orders, String fcmRegId) {
 		List<Order> orderList = new ArrayList<>();
 		Integer orderItemId;
 		OrderStatus orderStatus = new OrderStatus();
@@ -107,6 +109,8 @@ public class RestaurantOrderRegisterImpl implements RestaurantOrderRegister {
 				deleteOrderItems(orders);
 
 			}
+
+		notificationRegister.get().register(orders.personId, fcmRegId);
 	}
 
 	private void deleteOrderItems(Orders order) {
@@ -242,6 +246,11 @@ public class RestaurantOrderRegisterImpl implements RestaurantOrderRegister {
 	public void updateOrderStatus(OrderList orderList) {
 
 		restaurantOrderDao.get().updateOrderStatusById(orderList);
+
+		String personId = restaurantOrderDao.get().getPersonIdByOrderId(orderList.orderId);
+
+
+		notificationRegister.get().send(new Event(personId, orderList.orderNo, orderList.status));
 	}
 
 

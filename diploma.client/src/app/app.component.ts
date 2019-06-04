@@ -3,6 +3,7 @@ import {LoginService} from "./login/login.service";
 import {ActivatedRoute} from "@angular/router";
 import {LanguagesService} from "./shared/languages.service";
 import {AdminService} from "./admin/admin.service";
+import {MessagingService} from "./messaging.service";
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ export class AppComponent implements OnInit {
   constructor(public login: LoginService,
               private currentRoute: ActivatedRoute,
               public languagesService: LanguagesService,
-              public adminService: AdminService) {
+              public adminService: AdminService,
+              private messagingService: MessagingService) {
 
     this.const_languages = languagesService.CONST_LANGUAGES;
   }
@@ -26,6 +28,8 @@ export class AppComponent implements OnInit {
       this.createLocalStorageUser()
     })
     // document.getElementById("navItem1").classList.add("active")
+
+    this.messagingService.requestPermission().toPromise().then();
   }
 
   addClass() {

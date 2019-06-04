@@ -1,57 +1,26 @@
 package kz.greetgo.diploma.controller.model;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-public class Event implements Comparable<Event> {
-  public Long id;
-  public Date date;
-  public String time;
-  public String action;
-  public Long childId;
-  public String fio;
-  public String img;
-  public String gender;
-  public String entrance;
-  public String cardNumber;
+public class Event {
+  public String personId;
+  public String orderNo;
+  public Integer orderStatus;
 
 
-  public String when;
-  public String timeUnit;
+  public Event() {}
 
-
-  private SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
-
-  @Override
-  public int compareTo(Event event) {
-
-    if (this.date == null || event.date == null) {
-      return 0;
-    }
-    return this.date.compareTo(event.date);
-  }
-
-  public void setTime() {
-    this.time = timeFormat.format(this.date);
-  }
-
-  private static SimpleDateFormat notificationTimeFormat = new SimpleDateFormat("hh:mm dd/mm/yyyy");
-
-  public String getNotificationTime() {
-    return notificationTimeFormat.format(this.date);
+  public Event(String personId, String orderNo, Integer orderStatus) {
+    this.personId = personId;
+    this.orderNo = orderNo;
+    this.orderStatus = orderStatus;
   }
 
   public NotificationEvent toNotificationEvent() {
     NotificationEvent e = new NotificationEvent();
+    String status = orderStatus == 2 ? "'В процессе'" : "'Завершен'";
 
-    String strDate = getNotificationTime();
-
-    e.cardNumber = this.cardNumber;
-    e.title = this.fio;
-    e.action = this.action;
-    e.body = this.fio + " " + this.action + " at " + strDate + " by " + this.entrance + " entrance.";
-
+    e.title = "Заказ";
+//    e.body = "Был изменен заказ с номером:" + this.orderNo + ", на статус: " + status;
+    e.body = "Cтатус: " + status + "\nНомер заказа: " + this.orderNo;
     return e;
   }
-
 }

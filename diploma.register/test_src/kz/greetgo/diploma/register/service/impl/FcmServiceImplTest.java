@@ -6,9 +6,9 @@ import kz.greetgo.diploma.controller.model.Event;
 import kz.greetgo.diploma.controller.model.NotificationEvent;
 import kz.greetgo.diploma.register.service.FcmService;
 import kz.greetgo.diploma.register.test.util.ParentTestNg;
+import kz.greetgo.util.RND;
 import org.testng.annotations.Test;
 
-import java.util.Date;
 import java.util.Map;
 
 public class FcmServiceImplTest extends ParentTestNg {
@@ -18,17 +18,13 @@ public class FcmServiceImplTest extends ParentTestNg {
   @Test
   public void testSendDirectNotification() throws Exception {
     String token =
-      "fqzIg6V_cms:APA91bGTLmNOGlyprD0mxwYrtdupqV6SyT2ICEFMc1D2goZlR7_ZYNyPtTZC-SI_2LMj2zy0H300" +
-        "--mr1kr2luCx6rRzW3iL61E0Hf66xOnz7rYdBczQWlUZ-wugdt5IPIHh0CASQMRJ";
+      "c-Y_Zktjawc" +
+        ":APA91bFm69kxBn4hdQUcI4yIqKnk55W58C10_kzLugBSYMsYiV1WSsPyLupuMLRZblVJXVwcSj4Bi_H1KeLuyBgpSLoA27KYyqzu3Xv0txSqxykbjO5c2SkZRfvlkLe6oGwTxXIFyYJJ";
 
-    for (int i = 0; i < 10; i++) {
-
+    for (int i = 0; i < 2; i++) {
       Event event = new Event();
-      event.fio = "Vasya Pupkin";
-      event.cardNumber = "1000000";
-      event.action = (i % 2 == 0) ? "in" : "out";
-      event.entrance = "public gate";
-      event.date = new Date();
+      event.orderNo = RND.intStr(10);
+      event.orderStatus = 2;
 
       Map<String, String> data = Maps.newHashMap();
       data.put("id", String.valueOf((int) (Math.random() * 1000)));

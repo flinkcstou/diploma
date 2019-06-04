@@ -75,15 +75,14 @@ public class NotificationRegisterImpl implements NotificationRegister {
   @Override
   public void send(Event event) {
     Map<String, String> data = Maps.newHashMap();
-    data.put("id", nullToEmpty(event.id + ""));
+    /*data.put("id", nullToEmpty(event.id + ""));
     data.put("action", nullToEmpty(event.action));
     data.put("img", nullToEmpty(event.img));
-    data.put("date", nullToEmpty(event.getNotificationTime()));
+    data.put("date", nullToEmpty(event.getNotificationTime()));*/
 
+    //sendTopicBasedNotifications(data, event.toNotificationEvent());
 
-    sendTopicBasedNotifications(data, event.toNotificationEvent());
-
-    notificationDao.get().getParentTokensByChild(event.childId)
+    notificationDao.get().getFcmRegIdByPersonId(event.personId)
       .stream()
       .forEach(token -> sendDirectNotification(token, data, event.toNotificationEvent()));
   }

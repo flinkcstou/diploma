@@ -1,35 +1,49 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {OrderService} from "./shared/order.service";
 import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
 import {LanguagesService} from "../shared/languages.service";
 import {LoginService} from "../login/login.service";
 import {BookingService} from "../shared/booking.service";
+import {MessagingService} from "../messaging.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.css']
 })
-export class OrdersComponent implements OnInit {
-  orderList;
+export class OrdersComponent implements OnInit, OnDestroy {
+
+  orderList = [];
   todayTime;
   isAuthorized: boolean = false;
   personId: number | string;
+
+  private onMessageSub: Subscription;
 
   constructor(private service: OrderService,
               private router: Router,
               private toastr: ToastrService,
               public languagesService: LanguagesService,
               public loginService: LoginService,
-              public bookingService: BookingService,) {
+              public bookingService: BookingService,
+              private messagingService: MessagingService) {
   }
 
   ngOnInit() {
     this.getPersonId()
 
     // this.refreshList();
-    this.todayTime = this.formatDate(new Date())
+    this.todayTime = this.formatDate(new Date());
+    this.onMessageSub = this.messagingService.onMessage().subscribe(notification => {
+      this.getPersonId();
+      console.log('notification:', notification);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.onMessageSub.unsubscribe();
   }
 
   getPersonId() {

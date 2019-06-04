@@ -5,6 +5,7 @@ import {HttpService} from "../../http.service";
 import {Item} from "../../../model/item.model";
 import {Comments} from "../../../model/comments.model";
 import {CommentsLike} from "../../../model/comments-like.model";
+import {FCM_REGISTRATION_ID} from "../../messaging.service";
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,9 @@ export class OrderService {
       orderItems: this.orderItems
     };
 
-    return this.httpService.post('/restaurant' + '/order-items', {orderItems: JSON.stringify(orderItems)})
+    return this.httpService.post('/restaurant' + '/order-items',
+      {orderItems: JSON.stringify(orderItems), fcmRegId: localStorage.getItem(FCM_REGISTRATION_ID)}
+    )
   }
 
   getOrderListById(id: string | number) {

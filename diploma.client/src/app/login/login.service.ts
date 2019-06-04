@@ -3,8 +3,6 @@ import {HttpService} from "../http.service";
 import {PersonDisplay} from "../../model/PersonDisplay";
 import {UserCan} from "../../model/UserCan";
 import {Router} from "@angular/router";
-import {getExpressionLoweringTransformFactory} from "@angular/compiler-cli/src/transformers/lower_expressions";
-import {languagesServices} from "../admin/admin-routing.module";
 import {LanguagesService} from "../shared/languages.service";
 
 @Injectable({
@@ -23,7 +21,7 @@ export class LoginService {
 
   constructor(private http: HttpService,
               private router: Router,
-              private languagesService:LanguagesService) {
+              private languagesService: LanguagesService) {
   }
 
   private started = false;
@@ -89,7 +87,9 @@ export class LoginService {
         username: this.username,
         password: this.password,
       }, "text").toPromise().then(resp => resp.body as string);
+
       await this.refresh();
+
       if(this.canViewWaiter){
         this.router.navigate(["/orders"]);
       }

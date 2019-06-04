@@ -42,6 +42,10 @@ import {CommentsComponent} from './comments/comments.component';
 import {AmazingTimePickerModule} from "amazing-time-picker";
 import {SliderModule} from "angular-image-slider";
 import {SlideshowModule} from "ng-simple-slideshow";
+import {MessagingService} from "./messaging.service";
+import {AngularFireMessagingModule} from "@angular/fire/messaging";
+import {AngularFireModule} from "@angular/fire";
+import {environment} from "../environments/environment";
 
 
 @NgModule({
@@ -69,10 +73,12 @@ import {SlideshowModule} from "ng-simple-slideshow";
     BrowserModule, HttpClientModule, FormsModule, AppRoutingModule,
     BrowserAnimationsModule, MatDialogModule, MatProgressSpinnerModule, ToastrModule.forRoot(),
     ReactiveFormsModule, CommonModule, TextMaskModule, MatDatepickerModule, MatNativeDateModule, MatInputModule,
-    AmazingTimePickerModule, MatSelectModule, MatCardModule, MatButtonModule, SliderModule, SlideshowModule
+    AmazingTimePickerModule, MatSelectModule, MatCardModule, MatButtonModule, SliderModule, SlideshowModule,
+    AngularFireMessagingModule,
+    AngularFireModule.initializeApp(environment.firebase),
   ],
   entryComponents: [OrderItemsComponent, NextOperationComponent, AlertComponent, TableSelectionComponent, CommentsComponent],
-  providers: [HttpService, LoginService, ClientListService, OrderService, FormBuilder],
+  providers: [HttpService, LoginService, ClientListService, OrderService, FormBuilder, MessagingService],
   bootstrap: [AppComponent],
 })
 export class AppModule {

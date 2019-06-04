@@ -11,7 +11,7 @@ public interface RestaurantOrderRegister {
 
 	ArrayList<Person> getCustomerList();
 
-	void postOrderItems(Orders orders);
+	void postOrderItems(Orders orders, String fcmRegId);
 
 	List<OrderList> getOrderList();
 

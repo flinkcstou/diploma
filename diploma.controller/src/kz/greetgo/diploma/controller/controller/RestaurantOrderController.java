@@ -57,11 +57,11 @@ public class RestaurantOrderController implements Controller {
 
 	@PublicAccess
 	@OnPost("/order-items")
-	public void postOrderItems(@Par("orderItems") @Json Orders orders) {
+	public void postOrderItems(@Par("orderItems") @Json Orders orders, @Par("fcmRegId") String fcmRegId) {
 
 		System.out.println(orders);
 
-		restaurantOrderRegister.get().postOrderItems(orders);
+		restaurantOrderRegister.get().postOrderItems(orders, fcmRegId);
 	}
 
 	@ToJson

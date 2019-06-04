@@ -57,6 +57,10 @@ public interface RestaurantOrderDao {
 		" where oorder_id = #{orderList.orderId}")
 	void updateOrderStatusById(@Param("orderList") OrderList orderList);
 
+
+	@Select("select person_id from oorder where oorder_id= #{oorderId}")
+	String getPersonIdByOrderId(@Param("oorderId") Integer oorderId);
+
 	@Select("insert into order_items( oorder_id, item_id, quantity) " +
 		"values (#{order.orderId}, #{order.itemId}, #{order.quantity}) returning order_item_id")
 	Integer inserOrderItem(@Param("order") OrderItem orderItem);
