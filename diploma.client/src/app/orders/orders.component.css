@@ -26,3 +26,100 @@ a.btn.text-secondary {
 a.btn.text-secondary.not-allowed {
   cursor: not-allowed;
 }
+
+.thead-light-color {
+  background: #B3DDD1;
+  box-shadow: 5px 10px 20px #D1DCE2 inset;
+}
+
+.order-table {
+  background-color: #f2f2f2;
+  /*box-shadow: 100px 20px 38px 13px #B3DDD1 inset;*/
+}
+
+tbody {
+  text-align: center
+}
+
+thead {
+  text-align: center;
+}
+
+tr:nth-child(even) {
+  background-color: #e5e5e5;
+}
+
+tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+.mat-display {
+  display: block;
+}
+
+.example-card {
+  max-width: 400px;
+}
+
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+.mat-card-margin {
+  margin-top: 20px;
+}
+
+.hide-mat-md {
+  display: block;;
+}
+
+@media (max-width: 1200px) {
+  .hide-mat-md {
+    display: none;;
+  }
+}
+.hover-mat-card:hover{
+  box-shadow: 0px 2px 10px 0px black;
+}
+
+
+/* The slow way */
+.make-it-slow {
+  opacity: 1;
+  box-shadow: 0 0 0 ;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.make-it-slow-opacity{
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+
+/* Transition to a bigger shadow on hover */
+.make-it-slow:hover {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  opacity: 1.1;
+
+}.make-it-slow-opacity:hover {
+  opacity: 1.1;
+
+}
+
+/* The fast way */
+.make-it-fast {
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+
+/* Pre-render the bigger shadow, but hide it */
+.make-it-fast::after {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Transition to showing the bigger shadow on hover */
+.make-it-fast:hover::after {
+  opacity: 1;
+}

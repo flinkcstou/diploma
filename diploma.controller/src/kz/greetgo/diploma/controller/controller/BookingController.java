@@ -4,6 +4,7 @@ import kz.greetgo.depinject.core.Bean;
 import kz.greetgo.depinject.core.BeanGetter;
 import kz.greetgo.diploma.controller.register.BookingRegister;
 import kz.greetgo.diploma.controller.register.model.Booking;
+import kz.greetgo.diploma.controller.register.model.Table;
 import kz.greetgo.diploma.controller.security.PublicAccess;
 import kz.greetgo.diploma.controller.util.Controller;
 import kz.greetgo.mvc.annotations.Json;
@@ -53,6 +54,14 @@ public class BookingController implements Controller {
 	public List<String> getRestaurantTable() throws ParseException {
 
 		return bookingRegister.get().getRestaurantTable();
+	}
+
+	@ToJson
+	@PublicAccess
+	@OnGet("/restaurant-table-list")
+	public List<Table> getRestaurantTableList() throws ParseException {
+
+		return bookingRegister.get().getRestaurantTableList();
 	}
 
 }

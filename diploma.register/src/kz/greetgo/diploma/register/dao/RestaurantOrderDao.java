@@ -12,6 +12,14 @@ public interface RestaurantOrderDao {
 	@Select("select *from item")
 	ArrayList<Item> selectItem();
 
+
+	@Select("select item_id, name, price, description, image from item where category=#{category};")
+	List<Item> selectItemByCategory(@Param("category") String category);
+
+	@Select("select distinct category from item")
+	List<String> getListCategory();
+
+
 	@Select("select * from item where item_id =#{itemId}")
 	Item selectItemById(@Param("itemId") Integer itemId);
 
@@ -64,6 +72,7 @@ public interface RestaurantOrderDao {
 		"  o.g_total     as gTotal,\n" +
 		"  o.p_method    as pMethod,\n" +
 		"  b.record_date_day,\n" +
+		"  b.phone_number as phoneNumber,\n" +
 		"  status.status as status\n" +
 		"from oorder o\n" +
 		"  left join person c on o.person_id= c.id\n" +
@@ -78,11 +87,13 @@ public interface RestaurantOrderDao {
 		"  o.g_total     as gTotal,\n" +
 		"  o.p_method    as pMethod,\n" +
 		"  b.record_date_day,\n" +
+		"  b.phone_number as phoneNumber,\n" +
 		"  status.status as status\n" +
 		"from oorder o\n" +
 		"  left join person c on o.person_id= c.id\n" +
 		"  left join order_status status on o.oorder_id = status.oorder_id" +
-		"  left join booking b on o.booking_id = b.booking_id where c.id = #{personId}")
+		"  left join booking b on o.booking_id = b.booking_id " +
+		"where o.person_id = #{personId}")
 	List<OrderList> selectOrderListById(@Param("personId") String personId);
 
 	@Select("select o.oorder_id as orderId, o.oorder_no as orderNo," +
@@ -91,8 +102,10 @@ public interface RestaurantOrderDao {
 		"where o.oorder_id = #{id}\n")
 	List<OrderList> selectorderById(@Param("id") Integer id);
 
-	@Delete("delete from oorder where oorder_id = #{id}")
-	void deleteOrdeeById(@Param("id") Integer id);
+
+	@Select("select id from person where username = #{id}")
+	String getPersonId(@Param("id") String id);
+
 
 	@Select("select \n" +
 		"item_id as itemId, count(*) as count \n" +
@@ -104,20 +117,34 @@ public interface RestaurantOrderDao {
 		"order by count desc limit 2")
 	List<ItemCount> prepareOffer(@Param("itemId") String itemId);
 
+	@Delete("delete from oorder where oorder_id = #{id}")
+	void deleteOrdeeById(@Param("id") Integer id);
+
 	@Delete("delete from order_items where oorder_id = #{id}")
 	void deleteOrderItemByorderId(@Param("id") Integer id);
 
+	@Delete("delete from order_items where order_item_id = #{id}")
+	void deleteorderItemsById(@Param("id") Integer id);
 
-	@Select("select o.oorder_id as orderId, " +
-		" o.oorder_no as orderNo, " +
-		" o.person_id as personId, " +
-		" o.p_method as pMethod, " +
-		" o.g_total as gTotal, " +
-		" o.booking_id as bookingId, " +
-		" status.status as status  " +
-		" from oorder o " +
-		" inner join order_status status on o.oorder_id = status.oorder_id " +
-		" where o.oorder_id = #{id}")
+	@Delete("delete from order_status where order_item_id = #{id}")
+	void deleteOrderStatusByOrderItemId(@Param("id") Integer id);
+
+	@Delete("delete from order_status where oorder_id = #{id}")
+	void deleteOrderStatusByOrderId(@Param("id") Integer id);
+
+
+	@Select("select distinct\n" +
+		"  o.oorder_id   as orderId,\n" +
+		"  o.oorder_no   as orderNo,\n" +
+		"  o.person_id   as personId,\n" +
+		"  o.p_method    as pMethod,\n" +
+		"  o.g_total     as gTotal,\n" +
+		"  o.booking_id  as bookingId,\n" +
+		"  status.status as status\n" +
+		"  from oorder o\n" +
+		"  left join order_status status on o.oorder_id = status.oorder_id\n" +
+		"  left join person c on o.person_id = c.id" +
+		"  where o.oorder_id = #{id}")
 	Orders selectorOrdersById(@Param("id") Integer id);
 
 	@Select("select\n" +
@@ -133,6 +160,25 @@ public interface RestaurantOrderDao {
 		"  inner join oorder as oo on o.oorder_id = oo.oorder_id where o.oorder_id = #{id}")
 	List<OrderItem> selectorOrderItemsById(@Param("id") Integer id);
 
+	@Select("" +
+		"  select\n" +
+		"  c.id,\n" +
+		"  c.messages,\n" +
+		"  c.person_id      as personId,\n" +
+		"  c.date      			as date,\n" +
+		"  c.item_id        as itemId,\n" +
+		"  p.username       as personName,\n" +
+		"  i.name           as itemName,\n" +
+		"  sum(cl.liked)    as liked,\n" +
+		"  sum(cl.disliked) as disliked\n" +
+		"  from public.comments c left join public.person p on c.person_id = p.id\n" +
+		"  left join public.item i on c.item_id = i.item_id\n" +
+		"  left join comments_like cl on cl.comments_id = c.id\n" +
+		"  where c.item_id = #{itemId}\n" +
+		"  group by c.id, p.username, i.name;")
+	List<Comments> getCommentsByItemId(@Param("itemId") Integer itemId);
+
+
 	@Select("select user_can from person_cans where person_id = #{personId}")
 	List<UserCan> loadCans(String personId);
 
@@ -143,10 +189,33 @@ public interface RestaurantOrderDao {
 										@Param("encodedPassword") String encodedPassword
 	);
 
+	@Insert("insert into comments (messages, person_id, item_id, date) " +
+		"values (#{comments.messages}, #{comments.personId}, #{comments.itemId}, #{comments.date})")
+	void setComments(@Param("comments") Comments comments);
+
+	@Insert("insert into comments_like(comments_id, person_id, liked ,disliked) " +
+		" values ( #{commentsLike.commentsId}, #{commentsLike.personId}, #{commentsLike.liked}, #{commentsLike.disliked})" +
+		" on conflict(comments_id, person_id ) " +
+		" do update set liked = #{commentsLike.liked}, disliked = #{commentsLike.disliked}")
+	void setCommentsLike(@Param("commentsLike") CommentsLike commentsLike);
+
+
 	@Update("update Person set ${fieldName} = #{fieldValue} where id = #{id}")
 	void updatePersonField(@Param("id") String id,
 												 @Param("fieldName") String fieldName,
 												 @Param("fieldValue") Object fieldValue);
 
+
+	@Select("select id from Person where id = #{id}")
+	String selectPersonID(@Param("id") String id);
+
+	@Select("select  liked  from comments_like where comments_id = #{commentsLike.commentsId} and  person_id=#{commentsLike.personId} ")
+	String selectCommentsByLiked(@Param("commentsLike") CommentsLike commentsLike);
+
+	@Select("select  disliked from comments_like where comments_id =#{commentsLike.commentsId} and  person_id=#{commentsLike.personId}")
+	String selectCommentsByDisliked(@Param("commentsLike") CommentsLike commentsLike);
+
+	@Select("select *from comments_like where person_id=#{personId}")
+	List<CommentsLike> setCommentsLikeByPersonId(@Param("personId") String personId);
 
 }

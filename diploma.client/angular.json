@@ -25,7 +25,12 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/js/jquery-1.11.3.min.js",
+              "src/js/scripts.js",
+              "src/js/waypoints.min.js"
+
+            ]
           },
           "configurations": {
             "production": {

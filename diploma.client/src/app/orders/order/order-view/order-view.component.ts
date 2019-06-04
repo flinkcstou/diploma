@@ -13,6 +13,11 @@ import {NgForm} from "@angular/forms";
 import {Item} from "../../../../model/item.model";
 import {ToastrService} from "ngx-toastr";
 import {Customer} from "../../../../model/customer.model";
+import {CommentsComponent} from "../../../comments/comments.component";
+import {Comments} from "../../../../model/comments.model";
+import {OrderItem} from "../../../../model/orderItem.model";
+import {ItemService} from "../../shared/item.service";
+import {ItemList} from "../../../../model/item-list.model";
 
 @Component({
   selector: 'app-order-view',
@@ -23,16 +28,28 @@ export class OrderViewComponent implements OnInit {
 
   customerList: Customer[];
 
+  username: String = "anonymous";
+  isAuthorized: boolean = false;
+
+  isChangeOrder: boolean = false;
+
   isValid: boolean;
 
+  comments: Array<Comments> = [];
+  public itemList: Item[];
+  public itemListList: ItemList[];
+  category: string = 'menu1';
+  isValidOrderItem: boolean = false;
+
   constructor(public service: OrderService,
+              private itemService: ItemService,
               private dialog: MatDialog,
               private customerService: CustomerService,
               private toastr: ToastrService,
               private router: Router,
               private currentRoute: ActivatedRoute,
               private bookingService: BookingService,
-              private languagesService: LanguagesService,
+              public languagesService: LanguagesService,
               public loginService: LoginService) {
   }
 
@@ -46,7 +63,6 @@ export class OrderViewComponent implements OnInit {
     }
     else {
       this.service.getOrderByID(+orderID).then(res => {
-        console.log('orderById: ', res)
         this.service.formData = OrderComponent.formDataAssign(res.body as Order);
         this.service.orderItems = res.body.orderItems;
       });
@@ -54,8 +70,11 @@ export class OrderViewComponent implements OnInit {
     this.customerService.getCustomerList()
       .then(res => {
         this.customerList = res.body as Customer[];
-        console.log("RES: :", res)
       }).catch(e => console.log(e))
+
+
+    this.getPersonId()
+    this.selectListItem();
 
   }
 
@@ -71,14 +90,49 @@ export class OrderViewComponent implements OnInit {
     return order
   }
 
+  changeUserName(username: string) {
+
+    var person = JSON.parse(localStorage.getItem('person'))
+    person.name = username
+    person.isChange = true;
+    localStorage.setItem('person', JSON.stringify(person))
+    console.log('1111')
+  }
+
+  getPersonId() {
+    this.loginService.getPersonDisplay().then(value1 => {
+      if (value1.username) {
+        this.bookingService.getPersonId(value1.username).then(value => {
+          this.isAuthorized = true;
+          this.username = value1.username
+          this.service.formData.personId = value.body
+        })
+      }
+      else {
+        this.userForLocalStorage()
+      }
+
+    });
+  }
+
+  userForLocalStorage() {
+    let person: any = JSON.parse(localStorage.getItem('person'))
+    if (!this.service.formData.personId) {
+      this.service.formData.personId = person.id
+    }
+    if (person.isChange) {
+      this.username = person.name
+    }
+  }
+
   resetForm(form?: NgForm) {
     if (form === null)
       form.resetForm();
     this.service.formData = {
       orderId: 0,
       orderNo: Math.floor(100000 + Math.random() * 900000).toString(),
-      personId:  JSON.parse(localStorage.getItem('person')).id,
-      pMethod: '',
+      personId: JSON.parse(localStorage.getItem('person')).id,
+      pMethod: this.languagesService.languages.cash,
       gTotal: 0,
       bookingId: null,
       status: 1,
@@ -88,6 +142,7 @@ export class OrderViewComponent implements OnInit {
 
   addOrEditOrderItem(orderItemIndex, orderId) {
     event.preventDefault();
+    this.isChangeOrder = true;
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.disableClose = true;
@@ -100,11 +155,36 @@ export class OrderViewComponent implements OnInit {
 
   onDeleteOrderItem(orderItemId: number, i: number) {
     event.preventDefault();
+    this.isChangeOrder = true;
     this.service.orderItems.splice(i, 1)
     this.updateGrandTotal();
     this.service.offerPrepare().then(res => {
       this.service.items = res.body as Item[]
     })
+  }
+
+  onViewComment(orderItemId: number, i: number) {
+    event.preventDefault();
+    let itemId = this.service.orderItems[i].itemId;
+    this.service.getCommentsbyItemId(itemId).then(value => {
+      this.comments = value.body as Comments[];
+
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.autoFocus = true;
+      dialogConfig.disableClose = false;
+      dialogConfig.width = "70%";
+      dialogConfig.height = "80%";
+      dialogConfig.data = {
+        comments: this.comments,
+        itemId: itemId,
+        isCommentsMessage: true,
+      }
+      dialogConfig.panelClass = 'backgound-mat-dialogs';
+      this.dialog.open(CommentsComponent, dialogConfig).afterClosed().subscribe(res => {
+      })
+
+    });
+
   }
 
   updateGrandTotal() {
@@ -126,7 +206,17 @@ export class OrderViewComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    console.log("this.service.formData", this.service.formData);
+    event.preventDefault();
+    if (this.validateForm()) {
+      this.service.saveOrUpdateOrder().subscribe(res => {
+        this.resetForm();
+        this.toastr.success(this.languagesService.languages.submitsuccesfully, this.languagesService.languages.nameapp);
+        this.router.navigate(['/orders']);
+      })
+    }
+  }
+  onSubmitMatButton() {
+    event.preventDefault();
     if (this.validateForm()) {
       this.service.saveOrUpdateOrder().subscribe(res => {
         this.resetForm();
@@ -140,5 +230,128 @@ export class OrderViewComponent implements OnInit {
     if (this.bookingService.booking.bookingId) {
       this.service.formData.bookingId = this.bookingService.booking.bookingId;
     }
+  }
+
+  getList() {
+    this.itemService.getItemListByCategory(this.category)
+      .then(res => {
+        this.itemList = res.body as Item[];
+        console.table(this.itemList)
+        this.itemListList = this.itemList.map((value, index) => {
+          let orderItem = new OrderItem();
+          orderItem = {
+            orderItemId: null,
+            orderId: this.service.formData.orderId,
+            itemId: 0,
+            itemName: '',
+            price: value.price,
+            quantity: 1,
+            total: 0
+          };
+          orderItem.total = parseFloat((orderItem.quantity * orderItem.price).toFixed(2));
+
+          let items = {
+            orderItem: orderItem,
+            ...value
+          }
+          return items;
+        })
+      })
+      .catch(e => console.log("NAZAR: ", e))
+  }
+
+  selectListItem() {
+    this.itemService.getItemListByCategory(this.category)
+      .then(res => {
+        this.itemList = res.body as Item[];
+        console.table(this.itemList)
+        this.itemListList = this.itemList.map((value, index) => {
+          let orderItem = new OrderItem();
+          orderItem = {
+            orderItemId: null,
+            orderId: this.service.formData.orderId,
+            itemId: value.itemId,
+            itemName: value.name,
+            price: value.price,
+            quantity: 1,
+            total: 0
+          };
+          orderItem.total = parseFloat((orderItem.quantity * orderItem.price).toFixed(2));
+
+          let items = {
+            orderItem: orderItem,
+            ...value
+          }
+          return items;
+        })
+      })
+      .catch(e => console.log("NAZAR: ", e))
+  }
+
+  updateTotal(item: ItemList, e) {
+    if (this.invalidChars.includes(e.key)) {
+      e.preventDefault();
+    }
+    item.orderItem.quantity = +(item.orderItem.quantity + '').replace(/^0+/, '');
+    item.orderItem.total = parseFloat((item.orderItem.quantity * item.price).toFixed(2))
+  }
+
+  invalidChars = [
+    "-",
+    "+",
+    "e",
+  ];
+
+  validateFormOrderItem(item: ItemList) {
+    this.isValidOrderItem = true;
+    if (item.orderItem.itemId == 0) {
+      this.isValidOrderItem = false
+    }
+    else if (!item.orderItem.quantity) {
+      this.isValidOrderItem = false
+    }
+    return this.isValidOrderItem
+  }
+
+  submitOrderItem(item: ItemList) {
+    if (!this.validateFormOrderItem(item)) {
+      return
+    }
+    else {
+      this.isChangeOrder = true;123
+      this.service.orderItems.push(item.orderItem);
+      this.service.offerPrepare().then(res => {
+        console.log("OFFER PREPARE: ", res.body);
+        if (res.body.length)
+          this.service.items = res.body as Item[]
+        this.updateGrandTotal();
+      });
+
+    }
+
+  }
+
+  showComments(orderItemId: number, i: number) {
+    event.preventDefault();
+    let itemId = this.service.orderItems[i].itemId;
+    this.service.getCommentsbyItemId(itemId).then(value => {
+      this.comments = value.body as Comments[];
+
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.autoFocus = true;
+      dialogConfig.disableClose = false;
+      dialogConfig.width = "70%";
+      dialogConfig.height = "80%";
+      dialogConfig.data = {
+        comments: this.comments,
+        itemId: itemId,
+        isCommentsMessage:true,
+      }
+      dialogConfig.panelClass = 'backgound-mat-dialogs';
+
+      this.dialog.open(CommentsComponent, dialogConfig).afterClosed().subscribe(res => {
+      })
+
+    })
   }
 }

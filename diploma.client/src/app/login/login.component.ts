@@ -15,4 +15,16 @@ export class LoginComponent implements OnInit {
   async ngOnInit() {
     await this.loginService.start();
   }
+invalidChars = [
+    "-",
+    "+",
+    "e",
+  ];
+
+  deleteE(e){
+    if (this.invalidChars.includes(e.key)) {
+      e.preventDefault();
+    }
+  }
+
 }

@@ -120,15 +120,21 @@ export class TableSelectionComponent implements OnInit {
   }
 
   createstaticTable() {
-    let count = 0;
+
+    let findTableItem = 0;
     for (let key in this.staticTable) {
       for (let item in this.staticTable[key]) {
-        if (count == this.data.response) {
+        for (let tab in this.data.tableArray) {
+          if (this.data.tableArray[tab].name == this.staticTable[key][item].name) {
+            this.staticTable[key][item].enable = true
+            this.staticTable[key][item].personNumber = this.data.tableArray[tab].personNumber
+          }
+        }
+        if (findTableItem == this.data.response) {
           this.selectedItem = this.staticTable[key][item]
         }
-        this.staticTable[key][item].id = count++
-        if (this.data.count >= count)
-          this.staticTable[key][item].enable = true;
+        this.staticTable[key][item].id = findTableItem++
+
       }
     }
   }
@@ -139,11 +145,12 @@ export class TableSelectionComponent implements OnInit {
 
 
   chooseTable(item: any) {
+    let answerBack: any;
     this.selectedItem = item;
     if (this.selectedItem.enable) {
 
       setTimeout(() => {
-        this.dialogRef.close(this.selectedItem.id)
+        this.dialogRef.close(this.selectedItem)
 
       }, 200)
     }

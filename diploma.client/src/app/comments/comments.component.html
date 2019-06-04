@@ -1,0 +1,56 @@
+<div class="comments-color" id="commentPage">
+  <div class="position-fixed-comment">
+    <a href="#downpage" class=" btn  fixed-scroll-position color-comments"
+       *ngIf="isCommentMessage && !loginService.canViewWaiter && !loginService.canViewAdmin " (click)="scrollDown()">Go
+      to comment <i
+        class="fa fa-chevron-down" aria-hidden="true"></i></a>
+  </div>
+  <div class="text-center " style="margin-bottom: 50px"><h3>Comments</h3></div>
+
+  <div class="" *ngFor="let comment of commentsWithExtendsModels">
+    <div class="col-md-12  bg-light shadow-sm rounded row padding-commments ">
+      <div class="col-md-5 row header-container">
+        <div class=" avatar col-md-4"></div>
+        <div class="col-md-12 offset-md-1 ">
+          <h6 class="text-muted time col-md-12"><span>{{comment.dateFormatter}}</span></h6>
+          <div class="title col-md-12">
+            <a><b class="title border">food:</b></a>
+            {{comment.itemName}}
+          </div>
+          <div class="title col-md-12 ">
+            <a><b class="title border">author:</b></a>
+            {{comment.personName}}
+          </div>
+          <a [class.btn-success]="comment.isLiked"
+             class="btn btn-default stat-item" (click)="addLiked(comment)">
+            <i class="fa fa-thumbs-up icon"> {{comment.liked}} </i>
+          </a>
+          <a [class.btn-danger]="comment.isDisliked"
+             class="btn btn-default stat-item" (click)="addDisliked(comment)">
+            <i class="fa fa-thumbs-down icon "> {{comment.disliked}} </i>
+          </a>
+        </div>
+      </div>
+      <div class="col-md-7">{{comment.messages}}
+      </div>
+    </div>
+    <br>
+  </div>
+
+
+  <div id="downpage" class=""
+       *ngIf="isCommentMessage && !loginService.canViewWaiter && !loginService.canViewAdmin ">
+    <form autocomplete="off" class="col-md-12  bg-light shadow-sm rounded row" (submit)="onSubmit()">
+      <mat-form-field class="mat-display col-md-12" style="padding-top: 20px;">
+        <textarea matInput placeholder="Оставить комментарий:" id="commentText" name="commentText" rows="3"
+                  [(ngModel)]="ngComments.messages" (keyup)="checkValues($event)"></textarea>
+      </mat-form-field>
+      <div class="form-group col-md-3 offset-md-9 pull-right">
+        <button mat-raised-button type="submit" class="pull-right"><i class="fa fa-paper-plane" aria-hidden="true">
+          Отправить</i></button>
+      </div>
+    </form>
+
+    <br>
+  </div>
+</div>

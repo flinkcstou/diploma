@@ -11,6 +11,20 @@
         </div>
       </div>
       <div class="form-group">
+        <label>{{languagesService.languages.productcategory}}</label>
+        <div class="input-group">
+          <input name="itemPrice" #itemCategory="ngModel" [(ngModel)]="adminService.item.image"
+                 class="form-control">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>{{languagesService.languages.productdescription}}</label>
+        <div class="">
+          <textarea name="itemPrice" #itemDescription="ngModel" [(ngModel)]="adminService.item.description"
+                    class="form-control" rows="10"></textarea>
+        </div>
+      </div>
+      <div class="form-group">
         <label>{{languagesService.languages.productprice}}</label>
         <div class="input-group">
           <div class="input-group-prepend">

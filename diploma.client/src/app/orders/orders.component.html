@@ -1,60 +1,66 @@
-<table class="table table-hover">
-  <thead class="thead-light ">
-  <th>{{languagesService.languages.orderno.toFirstTitleCase()}}</th>
-  <th>{{languagesService.languages.customer.toFirstTitleCase()}}</th>
-  <th>{{languagesService.languages.pmethod.toFirstTitleCase()}}</th>
-  <th>{{languagesService.languages.gtotal.toFirstTitleCase()}}</th>
-  <th>{{languagesService.languages.status.toFirstTitleCase()}}</th>
-  <th>{{languagesService.languages.recorddateday.toFirstTitleCase()}}</th>
+<div class="table-responsive">
+  <table class="shadow-sm table table-hover p-3 mb-5 rounded ">
+    <thead class=" thead-light-color ">
+    <th>{{languagesService.languages.orderno.toFirstTitleCase()}}</th>
+    <th>{{languagesService.languages.customer.toFirstTitleCase()}}</th>
+    <th>{{languagesService.languages.pmethod.toFirstTitleCase()}}</th>
+    <th>{{languagesService.languages.gtotal.toFirstTitleCase()}}</th>
+    <th>{{languagesService.languages.status.toFirstTitleCase()}}</th>
+    <th>{{languagesService.languages.recorddateday.toFirstTitleCase()}}</th>
 
-  <th *ngIf="loginService.canViewWaiter"
-      class="text-center">{{languagesService.languages.acceptfood.toFirstTitleCase()}}
-  </th>
-  <th *ngIf="!loginService.canViewWaiter">
-    <a class="btn btn-outline-success" routerLink="/order"><i class="fa fa-plus-square"></i>
-      {{languagesService.languages.createnew}}</a>
-  </th>
-  </thead>
-  <tbody>
-  <tr *ngFor="let item of orderList"
-      [class.table-warning]="item.status==1"
-      [class.table-info]="item.status==3">
-    <th (click)="openForEdit(item)">{{item.orderNo}}</th>
-    <td (click)="openForEdit(item)">{{item.name}}</td>
-    <td (click)="openForEdit(item)" [class.pay-in-card]="item.pMethod=='Card'"
-        [class.pay-in-cash]="item.pMethod=='Cash'" [class.pay-in-cash-or-card]="item.pMethod==''">
-      <!--{{item.pMethod}}--></td>
-    <td (click)="openForEdit(item)">{{item.gTotal}}</td>
-    <td>
-      <span class="badge badge-warning" *ngIf="item.status==1">В ожидании</span>
-      <span class="badge badge-primary" *ngIf="item.status==2">В процессе</span>
-      <span class="badge badge-success" *ngIf="item.status==3">Завершено</span>
-    </td>
-    <td (click)="openForEdit(item)">{{item.recordDateDay}}
-    </td>
-    <td *ngIf="loginService.canViewWaiter">
+    <th *ngIf="loginService.canViewWaiter"
+        class="text-center">{{languagesService.languages.acceptfood.toFirstTitleCase()}}
+    </th>
+    <th *ngIf="!loginService.canViewWaiter">
+      <a class="btn btn-outline-success" routerLink="/order"><i class="fa fa-plus-square"></i>
+        {{languagesService.languages.createnew}}</a>
+    </th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of orderList"
+        [class.table-warning]="item.status==1"
+        [class.table-info]="item.status==3">
+      <th (click)="openForEdit(item)">{{item.orderNo}}</th>
+      <!--<td  (click)="openForEdit(item)">{{(item.phoneNumber ? item.phoneNumber : languagesService.languages.anonymous.toFirstTitleCase() )}}</td>-->
+      <td *ngIf="loginService.personDisplay" (click)="openForEdit(item)">{{item.phoneNumber ? item.phoneNumber : item.name}}</td>
+      <td  *ngIf="!loginService.personDisplay" (click)="openForEdit(item)">{{item.phoneNumber ? item.phoneNumber : languagesService.languages.anonymous.toFirstTitleCase()}}</td>
+      <td (click)="openForEdit(item)" [class.pay-in-card]="item.pMethod=='Card'"
+          [class.pay-in-cash]="item.pMethod=='Cash'" [class.pay-in-cash-or-card]="item.pMethod==''">
+        <!--{{item.pMethod}}--></td>
+      <td (click)="openForEdit(item)">{{item.gTotal}}</td>
+      <td>
+        <span class="badge badge-warning" *ngIf="item.status==1">{{languagesService.languages.pending.toFirstTitleCase()}}</span>
+        <span class="badge badge-primary" *ngIf="item.status==2">{{languagesService.languages.process.toFirstTitleCase()}}</span>
+        <span class="badge badge-success" *ngIf="item.status==3">{{languagesService.languages.completed.toFirstTitleCase()}}</span>
+      </td>
+      <td (click)="openForEdit(item)">{{item.recordDateDay}}
+      </td>
+      <td *ngIf="loginService.canViewWaiter">
 
-      <a class="btn text-secondary not-allowed"
-         *ngIf="item.status==1 && (item.recordDateDay !='online' && item.recordDateDay !=todayTime)">
-        не доступен <i class="fa fa-check-square-o"></i></a>
-      <a class="btn text-secondary"
-         *ngIf="item.status==1 && (item.recordDateDay =='online' || item.recordDateDay ==todayTime)"
-         (click)="changeStatusAccept(item)">Принять <i class="fa fa-check-square-o"></i></a>
+        <a class="btn text-secondary not-allowed"
+           *ngIf="item.status==1 && (item.recordDateDay !='online' && item.recordDateDay !=todayTime)">
+          {{languagesService.languages.notavailable}} <i class="fa fa-check-square-o"></i></a>
+        <a class="btn text-secondary"
+           *ngIf="item.status==1 && (item.recordDateDay =='online' || item.recordDateDay ==todayTime)"
+           (click)="changeStatusAccept(item)"> {{languagesService.languages.accept.toTitleCase()}} <i
+          class="fa fa-check-square-o"></i></a>
 
-      <a class="btn text-primary" *ngIf="item.status==2"
-         (click)="changeStatusComplete(item)">завершить <i class="fa fa-check-square-o"></i></a>
+        <a class="btn text-primary" *ngIf="item.status==2"
+           (click)="changeStatusComplete(item)">{{languagesService.languages.acceptend.toTitleCase()}} <i
+          class="fa fa-check-square-o"></i></a>
+        <a class="btn text-success" *ngIf="item.status==3">{{languagesService.languages.acceptended.toTitleCase()}} <i
+          class="fa fa-check-square-o"></i></a>
 
-      <a class="btn text-success" *ngIf="item.status==3">завершено <i class="fa fa-check-square-o"></i></a>
+      </td>
 
-    </td>
+      <td *ngIf="!loginService.canViewWaiter">
+        <a class="btn text-danger" *ngIf="item.status==1"
+           (click)="onOrderDelete(item.orderId)"><i class="fa fa-trash fa-lg"></i></a>
 
-    <td *ngIf="!loginService.canViewWaiter">
-      <a class="btn text-danger" *ngIf="item.status==1"
-         (click)="onOrderDelete(item.orderId)"><i class="fa fa-trash fa-lg"></i></a>
-
-      <a class="btn text-secondary" *ngIf="item.status>1"
-         disabled><i class="fa fa-trash fa-lg"></i></a>
-    </td>
-  </tr>
-  </tbody>
-</table>
+        <a class="btn text-secondary" *ngIf="item.status>1"
+           disabled><i class="fa fa-trash fa-lg"></i></a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

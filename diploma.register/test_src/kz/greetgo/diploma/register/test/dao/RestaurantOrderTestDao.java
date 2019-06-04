@@ -5,11 +5,14 @@ import org.apache.ibatis.annotations.Param;
 
 public interface RestaurantOrderTestDao {
 
-	@Insert("insert into item( name, price) " +
-		"values (#{name}, #{price})")
+	@Insert("insert into item( name, price,category, description, image) " +
+		"values (#{name}, #{price}, #{category} ,#{description}, #{image} )")
 	void insertItem(@Param("itemId") Integer itemId,
 									@Param("name") String name,
-									@Param("price") float price);
+									@Param("price") float price,
+									@Param("category") String category,
+									@Param("description") String description,
+									@Param("image") String image);
 
 	@Insert("insert into customer(person_id, name) " +
 		"values (#{personId}, #{name})")

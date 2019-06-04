@@ -4,6 +4,7 @@ import kz.greetgo.depinject.core.Bean;
 import kz.greetgo.depinject.core.BeanGetter;
 import kz.greetgo.diploma.controller.register.BookingRegister;
 import kz.greetgo.diploma.controller.register.model.Booking;
+import kz.greetgo.diploma.controller.register.model.Table;
 import kz.greetgo.diploma.register.beans.all.IdGenerator;
 import kz.greetgo.diploma.register.dao.BookingDao;
 import kz.greetgo.security.password.PasswordEncoder;
@@ -73,6 +74,12 @@ public class BookingRegisterImpl implements BookingRegister {
 		String id = bookingDao.get().getPersonId(username);
 		System.out.println(id);
 		return id;
+	}
+
+	@Override
+	public List<Table> getRestaurantTableList() {
+
+		return bookingDao.get().getRestaurantTableList();
 	}
 
 	public static void main(String[] args) {

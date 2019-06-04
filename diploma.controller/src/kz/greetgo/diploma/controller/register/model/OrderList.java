@@ -18,6 +18,8 @@ public class OrderList {
 
 	public Date recordDateDay;
 
+	public String phoneNumber;
+
 	@Override
 	public String toString() {
 
@@ -29,6 +31,7 @@ public class OrderList {
 			", pMethod='" + pMethod + '\'' +
 			", status=" + status +
 			", recordDateDay=" + recordDateDay +
+			", phoneNumber='" + phoneNumber + '\'' +
 			'}';
 	}
 }

@@ -1,62 +1,75 @@
-<div class="container">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand"></a>
+<div class="app-root-color ">
+  <nav class="navbar navbar-expand-lg navbar-light  navbar-color bg-light shadow-sm p-3 mb-5 rounded">
+    <a class="navbar-brand col-md-1">
+      <img  id='logoPhoto' src="assets/img/food.png" >
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
             aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav mr-auto" (click)="addClass()">
+      <ul class=" navbar navbar-nav mr-auto app-navbar" (click)="addClass()">
         <li class="nav-item " id="navItem1" (click)="showMainPage('main')">
-          <a class="nav-link" routerLink="/">{{languagesService.languages.main.toFirstTitleCase()}}<span
+          <a class="nav-link"  *ngIf="!login.canViewAdmin && !login.canViewWaiter" routerLink="/">{{languagesService.languages.order.toFirstTitleCase()}}<span
             class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item" id="navItem2" (click)="showMainPage('booking')">
-          <a class="nav-link" routerLink="/booking">{{languagesService.languages.order.toFirstTitleCase()}}<span
+        <li  *ngIf="!login.canViewAdmin && !login.canViewWaiter" class="nav-item" id="navItem2" (click)="showMainPage('booking')">
+          <a class="nav-link" routerLink="/booking">{{languagesService.languages.booking.toFirstTitleCase()}}<span
             class="sr-only">(current)</span></a>
+        </li>
+
+        <li class="nav-item" id="navItem8" (click)="showMainPage('orders')">
+          <a class="nav-link" (click)="showMainPage('orders')" routerLink="/orders">{{languagesService.languages.listorders.toFirstTitleCase()}}</a>
         </li>
         <li class="nav-item" id="navItem3" (click)="showMainPage('booking')" *ngIf="login.canViewAdmin">
           <a class="nav-link" routerLink="/admin">{{languagesService.languages.admin.toFirstTitleCase()}}<span
             class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item" id="navItem6" (click)="showMainPage('login')">
+        <li  *ngIf="!login.canViewAdmin && !login.canViewWaiter" class="nav-item" id="navItem6" (click)="showMainPage('login')">
           <a class="nav-link" (click)="showMainPage('about')"
              routerLink="/about">{{languagesService.languages.about.toFirstTitleCase()}}</a>
         </li>
-        <li class="nav-item" id="navItem8" (click)="showMainPage('orders')">
-          <a class="nav-link" (click)="showMainPage('orders')" routerLink="/orders">{{languagesService.languages.listorders.toFirstTitleCase()}}</a>
-        </li>
+        <!--  <li class="nav-item" id="navItem9" (click)="showMainPage('contact')">
+            <a class="nav-link" (click)="showMainPage('contact')"
+               routerLink="/contact">{{languagesService.languages.contactus.toTitleCase()}}</a>
+          </li>-->
+        <!--<li class="nav-item" id="navItem10" (click)="showMainPage('instruction')">
+          <a class="nav-link" (click)="showMainPage('instruction')"
+             routerLink="/instruction">{{languagesService.languages.instruction.toTitleCase()}}</a>
+        </li>-->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
              aria-haspopup="true" aria-expanded="false">
             {{languagesService.languages.language.toFirstTitleCase()}}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" (click)="changeLanguage(const_languages.RU_LANGUAGE)">{{languagesService.languages.russian}}</a>
-            <a class="dropdown-item" (click)="changeLanguage(const_languages.EN_LANGUAGE)">{{languagesService.languages.english}}</a>
+            <a class="dropdown-item" (click)="changeLanguage(const_languages.RU_LANGUAGE)">Русский</a>
+            <a class="dropdown-item" (click)="changeLanguage(const_languages.EN_LANGUAGE)">English</a>
           </div>
         </li>
-        <li class="nav-item" id="navItem4" (click)="showMainPage('registration')">
-          <a class="nav-link"
-             routerLink="/registration">{{languagesService.languages.registration.toFirstTitleCase()}}</a>
-        </li>
-        <li class="nav-item" id="navItem5" (click)="showMainPage('login')">
-          <a class="nav-link" *ngIf="!login.isAuthenticated" (click)="showMainPage('login')"
-             routerLink="/login">{{languagesService.languages.login.toFirstTitleCase()}}</a>
-        </li>
-        <li class="nav-item" id="navItem7" (click)="linkTelegram()">
+        <!--<li class="nav-item" id="navItem7" (click)="linkTelegram()">
           <a class="nav-link" (click)="linkTelegram()">{{languagesService.languages.telegrambot.toFirstTitleCase()}}</a>
+        </li>-->
+      </ul>
+      <ul class="navbar navbar-nav justify-content-end">
+
+        <li class="nav-item right"  *ngIf="!login.isAuthenticated" id="navItem4" (click)="showMainPage('registration')">
+          <a class="nav-link"
+             routerLink="/registration">{{languagesService.languages.registration.toUpperCase()}}</a>
+        </li>
+        <li class="nav-item " id="navItem5" (click)="showMainPage('login')">
+          <a class="nav-link" *ngIf="!login.isAuthenticated" (click)="showMainPage('login')"
+             routerLink="/login">{{languagesService.languages.login.toUpperCase()}}</a>
         </li>
       </ul>
 
 
-      <span class="navbar-text text-center px-md-2" *ngIf="login.personDisplay">
-      Аккаунт:   {{login.personDisplay.username}}
-    </span>
       <div class="btn-group px-md-2" *ngIf="login.personDisplay">
-        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+        <button type="button" class="btn  shesterenka-color dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false">
-          Action
+          <i class="fa fa-cog" aria-hidden="true"> <span class="navbar-text text-center px-md-2" *ngIf="login.personDisplay">
+      Аккаунт:   {{login.personDisplay.username}}
+    </span></i>
         </button>
         <div class="dropdown-menu px-md-2">
           <a class="dropdown-item px-md-2" (click)="login.exit()">{{languagesService.languages.exit}}</a>
@@ -69,19 +82,26 @@
   <h5 class="display-5 text-right"></h5>
 
 
-  <div class="jumbotron jumbtron-fluid">
-    <h3 class="display-4 text-center "><img src="/e-order/assets/img/food.png" alt="">
-      <img src="/assets/img/food.png" alt=""> {{languagesService.languages.nameapp}}
-    </h3>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-10 offset-md-1">
-          <router-outlet></router-outlet>
-        </div>
-      </div>
+  <div class="jumbotron jumbtron-fluid jumbtron-fluid-color app-router">
+
+    <router-outlet></router-outlet>
+
+  </div>
+
+
+</div>
+
+
+<footer id="mu-footer" class="bg-light shadow-sm rounded ">
+  <div class="mu-footer-area">
+    <div class="mu-footer-social">
+      <a (click)="linkTelegram()"><i class="fa fa-telegram"></i></a>
+      <a routerLink="/contact"><i class="fa fa-phone"></i></a>
+    </div>
+    <div class="mu-footer-copyright">
+      <p style="color: rgba(0,0,0,0.5)">&copy; {{languagesService.languages.copyright}} <a rel="nofollow" style="color: rgb(0,0,0);"
+                                                                 href="https://github.com/flinkcstou/diploma/tree/nazar_app_structure">flinkcstou</a>.
+        {{languagesService.languages.reserved}}.</p>
     </div>
   </div>
-</div>
-<div class="preloader" [hidden]="!login.preloader">
-  <mat-spinner></mat-spinner>
-</div>
+</footer>

@@ -13,4 +13,8 @@ export class ItemService {
     return this.httpService.get('/restaurant/list-item').toPromise();
   }
 
+  getItemListByCategory(category: string) {
+    return this.httpService.get('/restaurant/list-item-by-category', {category: category}).toPromise();
+  }
+
 }

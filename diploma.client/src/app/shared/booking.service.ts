@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpService} from "../http.service";
 import {Booking} from "../../model/booking.model";
+import {Table} from "../../model/table.model";
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,7 @@ import {Booking} from "../../model/booking.model";
 export class BookingService {
   public booking: Booking = new Booking();
   public table: Array<string> = [];
+  public tableArray: Array<Table> = [];
   public processResponse = "";
 
   constructor(private httpService: HttpService) {
@@ -30,6 +32,10 @@ export class BookingService {
   getRestaurantTable() {
     return this.httpService.get('/booking/restaurant-table').toPromise();
 
+  }
+
+  getRestaurantTableList() {
+    return this.httpService.get('/booking/restaurant-table-list').toPromise();
   }
 
 }

@@ -1,0 +1,19 @@
+tbody {
+  text-align: center;
+}
+
+thead {
+  text-align: center;
+}
+
+tr:nth-child(even) {
+  background-color: #e5e5e5;
+}
+
+tr:nth-child(odd) {
+  background-color: #e5e5e5;
+}
+
+.comments-text {
+  cursor: copy;
+}

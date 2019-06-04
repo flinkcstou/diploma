@@ -1,6 +1,7 @@
 package kz.greetgo.diploma.register.dao;
 
 import kz.greetgo.diploma.controller.register.model.Booking;
+import kz.greetgo.diploma.controller.register.model.Table;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -25,6 +26,9 @@ public interface BookingDao {
 
 	@Select("select name from restaurant_table where status = 1")
 	List<String> selectRestaurantTable();
+
+	@Select("select *from restaurant_table where status = 1")
+	List<Table> getRestaurantTableList();
 
 	@Insert("insert into Person (id, username, encoded_password, blocked) " +
 		"values (#{id}, #{username}, #{encodedPassword}, 0)")

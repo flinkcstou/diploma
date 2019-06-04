@@ -15,4 +15,17 @@ export class RegistrationComponent implements OnInit {
   async ngOnInit() {
 
   }
+
+
+  invalidChars = [
+    "-",
+    "+",
+    "e",
+  ];
+
+  deleteE(e){
+    if (this.invalidChars.includes(e.key)) {
+      e.preventDefault();
+    }
+  }
 }

@@ -1,99 +1,243 @@
-<form #form="ngForm" autocomplete="off" *ngIf="service.formData" (submit)="onSubmit(form)">
-  <div class="row">
-    <div class="col-md-6">
-      <div class="form-group">
-        <label>{{languagesService.languages.orderno.toFirstTitleCase()}}</label>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <div class="input-group-text">#</div>
+<div class="row">
+  <div class="col-md-10 offset-md-1">
+
+  </div>
+
+  <div style="display: flex; flex-wrap: wrap;">
+    <div class="col-lg-8 col-md-6">
+      <div style="display: flex; flex-wrap: wrap;">
+        <form class="shadow-sm p-3 mb-5 rounded bg-light col-md-12" #form="ngForm" autocomplete="off"
+              *ngIf="service.formData"
+              (submit)="onSubmit(form)">
+          <div class="row offset-md-2">
+            <div class="col-md-5">
+              <!-- <div class="form-group">
+                 <label>{{languagesService.languages.customer.toFirstTitleCase()}}</label>
+                 &lt;!&ndash;<select name="personId"1 #personId="ngModel" [(ngModel)]="service.formData.personId" class="form-control"
+                         [class.is-invalid]="!isValid && service.formData.personId==''">
+                   <option value="0">-{{languagesService.languages.select}}-</option>
+                   <option *ngFor="let item of customerList" [value]="item.personId">{{item.name}}</option>
+                 </select>&ndash;&gt;
+                 <input *ngIf="!isAuthorized" name="personId" #personId="ngModel" [(ngModel)]="username" class="form-control"
+                        (keyup)="changeUserName(username)"
+                        [class.is-invalid]="username =='' ">
+                 <input *ngIf="isAuthorized" name="personId" #personId="ngModel" [(ngModel)]="username" class="form-control"
+                        disabled>
+               </div>-->
+              <div class="form-group">
+                <label>{{languagesService.languages.orderno.toFirstTitleCase()}}</label>
+
+                <mat-form-field class="mat-display">
+                  <input matInput disabled style="font-size: 18px; color:#212529" [value]="service.formData.orderNo">
+                </mat-form-field>
+              </div>
+              <mat-form-field class="mat-display">
+                <label>{{languagesService.languages.categorytype.toFirstTitleCase()}}</label>
+                <mat-select name="categoryName" #categoryName="ngModel" [(ngModel)]="category"
+                            (selectionChange)="selectListItem()">
+                  <mat-option *ngFor="let cats of arrayOfCategory" [value]="cats">{{cats}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            </div>
+            <div class="col-md-5">
+
+
+              <div class="form-group">
+                <mat-form-field class="mat-display">
+                  <label>{{languagesService.languages.paymentmethod.toFirstTitleCase()}}</label>
+                  <mat-select name="pMethod" #pMethod="ngModel" [(ngModel)]="service.formData.pMethod">
+                    <mat-option value="Cash">{{languagesService.languages.cash}}</mat-option>
+                    <mat-option value="Card">{{languagesService.languages.card}}</mat-option>
+
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="form-group">
+                <label>{{languagesService.languages.granttotal.toFirstTitleCase()}}</label>
+                <mat-form-field class="mat-display">
+                  <input matInput disabled style="font-size: 18px; color:#212529" [value]="service.formData.gTotal">
+                </mat-form-field>
+              </div>
+
+            </div>
           </div>
-          <input name="orderNo" #orderNo="ngModel" [(ngModel)]="service.formData.orderNo" class="form-control" READONLY>
+          <!--order items table-->
+          <!--<div class="table-responsive col-md-12">
+            <table class="table table-borderless">
+              <thead class="thead-light">
+              <th>{{languagesService.languages.food}}</th>
+              <th>{{languagesService.languages.price}}</th>
+              <th>{{languagesService.languages.quantity}}</th>
+              <th>{{languagesService.languages.total}}</th>
+              <th>
+                <a href="" class="btn btn-sm btn-success text-white" *ngIf="!loginService.canViewWaiter"
+                   (click)="addOrEditOrderItem(null, service.formData.orderId)"><i
+                  class="fa fa-plus"></i></a>
+              </th>
+              </thead>
+              <tbody style="">
+              <tr *ngIf="service.orderItems.length==0" [class.text-danger]="!isValid && service.orderItems.length==0">
+                <td class="font-italic text-center" colspan="5">
+                  {{languagesService.languages.nofooditemselectd}}
+                </td>
+              </tr>
+
+              <tr *ngFor="let item of service.orderItems; let i=index" class=" order-table">
+                <td>{{item.itemName}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.quantity}}</td>
+                <td>{{item.total}}</td>
+                <td *ngIf="!loginService.canViewWaiter">
+                  <a href="" class="btn btn-sm btn-info text-white" (click)="addOrEditOrderItem(i, service.formData.orderId)"><i
+                    class="fa fa-pencil"></i></a>
+                  <a href="" class="btn btn-sm btn-danger text-white ml-1" (click)="onDeleteOrderItem(item.orderId, i)"><i
+                    class="fa fa-trash"></i></a>
+                  <a href="" class="btn btn-sm btn-dark text-white ml-1" (click)="onViewComment(item.orderId, i)"><i
+                    class="fa fa-commenting" aria-hidden="true"></i></a>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+          <div class="form-group col-md-2 offset-md-10" *ngIf="!loginService.canViewWaiter">
+
+            <button type="submit" class="btn btn-dark "><i class="fa fa-database"></i> {{languagesService.languages.submit}}
+            </button>
+          </div>
+
+          <div [hidden]="!service.items.length">
+            <div *ngFor="let item of service.items, index as ind" class="alert alert-warning alert-dismissible fade show"
+                 role="alert">
+              <strong>{{languagesService.languages.withthisproduct.toFirstTitleCase()}}- '{{ (service.orderItems.length-ind >=
+                ind ?
+                service.orderItems[service.orderItems.length-1-ind].itemName :
+                service.orderItems[service.orderItems.length-1].itemName)}}' {{ind}}
+                {{languagesService.languages.stillorder}} </strong> {{item.name}}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>-->
+        </form>
+
+        <div *ngFor="let item of itemListList; let i = index " class="col-lg-4 col-md-6 col-sm-6 "
+            >
+          <mat-card class="mat-card-margin make-it-slow">
+            <!--<mat-card-header>
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>Shiba Inu</mat-card-title>
+              <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+            </mat-card-header>-->
+            <img mat-card-image
+                 src="{{item.image}}"
+                 alt="Photo of a Shiba Inu">
+
+
+            <mat-card-content>
+              <h5 style="text-align: center">Название:</h5>
+              <mat-card-title class="text-danger" style="text-align: center">{{item.name}}
+              </mat-card-title>
+              <mat-card-title style="text-align: center;"><h5>Цена: <i class="text-success">{{item.price}}</i></h5>
+              </mat-card-title>
+              <p class="hide-mat-md">
+                {{item.description}}
+              </p>
+              <form class="example-form" style="font-size: 18px;">
+                <mat-form-field class="mat-display">
+                  <input matInput type="number" placeholder="Quantity:" name="itemQuantaty"
+                         [(ngModel)]="item.orderItem.quantity" (keyup)="updateTotal(item, $event)">
+                </mat-form-field>
+                <mat-form-field class="mat-display">
+                  <input matInput type="number" placeholder="Total:" [value]="item.orderItem.total" disabled>
+                </mat-form-field>
+              </form>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-raised-button color="warn" class="mat-display" style="width: 100%"
+                      (click)="submitOrderItem(item)">Add Product
+              </button>
+            </mat-card-actions>
+          </mat-card>
         </div>
       </div>
-      <div class="form-group">
-        <label>{{languagesService.languages.customer.toFirstTitleCase()}}</label>
-        <!--<select name="personId"1 #personId="ngModel" [(ngModel)]="service.formData.personId" class="form-control"
-                [class.is-invalid]="!isValid && service.formData.personId==''">
-          <option value="0">-{{languagesService.languages.select}}-</option>
-          <option *ngFor="let item of customerList" [value]="item.personId">{{item.name}}</option>
-        </select>-->
-        <input *ngIf="!isAuthorized" name="personId" #personId="ngModel" [(ngModel)]="username" class="form-control"
-               (keyup)="changeUserName(username)"
-               [class.is-invalid]="username =='' ">
-        <input *ngIf="isAuthorized" name="personId" #personId="ngModel" [(ngModel)]="username" class="form-control"
-               disabled>
-      </div>
     </div>
-    <div class="col-md-6">
-      <div class="form-group">
-        <label>{{languagesService.languages.paymentmethod.toFirstTitleCase()}}</label>
-        <select name="pMethod" #pMethod="ngModel" [(ngModel)]="service.formData.pMethod" class="form-control">
-          <option value="">-{{languagesService.languages.select}}-</option>
-          <option value="Cash">{{languagesService.languages.cash}}</option>
-          <option value="Card">{{languagesService.languages.card}}</option>
-        </select>
+    <div class="col-lg-4 col-md-6">
+      <div class="table-responsive">
+        <table class="table table-borderless">
+          <thead class="thead-light">
+          <th>{{languagesService.languages.food}}</th>
+          <th>{{languagesService.languages.quantity}}</th>
+
+          <th>{{languagesService.languages.total}}</th>
+          <th>
+            <!--<a href="" class="btn btn-sm btn-success text-white" *ngIf="!loginService.canViewWaiter"
+               (click)="addOrEditOrderItem(null, service.formData.orderId)"><i
+              class="fa fa-plus"></i></a>-->
+          </th>
+          </thead>
+          <tbody style="">
+          <tr *ngIf="service.orderItems && service.orderItems.length==0"
+              [class.text-danger]="!isValid && service.orderItems.length==0">
+            <td class="font-italic text-center" colspan="5">
+              {{languagesService.languages.nofooditemselectd}}
+            </td>
+          </tr>
+
+          <tr *ngFor="let item of service.orderItems; let i=index" class=" order-table">
+            <td>{{item.itemName}}</td>
+            <td>{{item.quantity}}</td>
+            <td>{{item.total}}</td>
+            <td *ngIf="!loginService.canViewWaiter">
+              <a href="" class="btn btn-sm btn-info text-white"
+                 (click)="addOrEditOrderItem(i, service.formData.orderId)"><i
+                class="fa fa-pencil"></i></a>
+              <a href="" class="btn btn-sm btn-danger text-white ml-1" (click)="onDeleteOrderItem(item.orderId, i)"><i
+                class="fa fa-trash"></i></a>
+              <a href="" class="btn btn-sm btn-dark text-white ml-1" (click)="onViewComment(item.orderId, i)"><i
+                class="fa fa-commenting" aria-hidden="true"></i></a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
       </div>
-      <div class="form-group">
-        <label>{{languagesService.languages.granttotal.toFirstTitleCase()}}</label>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <div class="input-group-text">$</div>
+      <div>
+        <div class="form-group " style="width: 100%" *ngIf="!loginService.canViewWaiter">
+          <!--<button type="submit" class="btn btn-dark "><i class="fa fa-database"></i> {{languagesService.languages.submit}}
+          </button>-->
+          <button mat-raised-button color="primary" name="buttonSubmit" type="submit" class="mat-display"
+                  style="width: 100%"
+                  (click)="onSubmitMatButton()"><i class="fa fa-database"></i> {{languagesService.languages.submit}}
+          </button>
+        </div>
+
+        <div [hidden]="!service.items.length">
+          <div *ngFor="let item of service.items, index as ind" class="alert alert-warning alert-dismissible fade show"
+               role="alert">
+            {{languagesService.languages.withthisproduct.toFirstTitleCase()}}- <strong> '{{
+            (service.orderItems.length-ind
+            >=
+            ind ?
+            service.orderItems[service.orderItems.length-1-ind].itemName :
+            service.orderItems[service.orderItems.length-1].itemName)}}'</strong>
+            {{languagesService.languages.stillorder}}
+            <strong>{{item.name}}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
-          <input name="gTotal" #gTotal="ngModel" [(ngModel)]="service.formData.gTotal" class="form-control" READONLY>
+        </div>
+        <div *ngIf="isChangeOrder" class="alert alert-warning alert-dismissible fade show" id="shangeOrderAlert"
+             role="alert">
+          <p> если вы изменили свой заказ или удалили, то для обновления данных нужно нажать на кнопку отправить </p>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
       </div>
     </div>
-  </div>
-  <!--order items table-->
-  <table class="table table-borderless">
-    <thead class="thead-light">
-    <th>{{languagesService.languages.food}}</th>
-    <th>{{languagesService.languages.price}}</th>
-    <th>{{languagesService.languages.quantity}}</th>
-    <th>{{languagesService.languages.total}}</th>
-    <th>
-      <a href="" class="btn btn-sm btn-success text-white" *ngIf="!loginService.canViewWaiter"
-         (click)="addOrEditOrderItem(null, service.formData.orderId)"><i
-        class="fa fa-plus"></i></a>
-    </th>
-    </thead>
-    <tbody>
-    <tr *ngIf="service.orderItems.length==0" [class.text-danger]="!isValid && service.orderItems.length==0">
-      <td class="font-italic text-center" colspan="5">
-        {{languagesService.languages.nofooditemselectd}}
-      </td>
-    </tr>
 
-    <tr *ngFor="let item of service.orderItems; let i=index">
-      <td>{{item.itemName}}</td>
-      <td>{{item.price}}</td>
-      <td>{{item.quantity}}</td>
-      <td>{{item.total}}</td>
-      <td *ngIf="!loginService.canViewWaiter">
-        <a href="" class="btn btn-sm btn-info text-white" (click)="addOrEditOrderItem(i, service.formData.orderId)"><i
-          class="fa fa-pencil"></i></a>
-        <a href="" class="btn btn-sm btn-danger text-white ml-1" (click)="onDeleteOrderItem(item.orderId, i)"><i
-          class="fa fa-trash"></i></a>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-  <div class="form-group" *ngIf="!loginService.canViewWaiter">
-    <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> {{languagesService.languages.submit}}
-    </button>
   </div>
-
-  <div [hidden]="!service.items.length">
-    <div *ngFor="let item of service.items, index as ind" class="alert alert-warning alert-dismissible fade show"
-         role="alert">
-      <strong>{{languagesService.languages.withthisproduct}}- '{{ (service.orderItems.length-ind >= ind ?
-        service.orderItems[service.orderItems.length-1-ind].itemName :
-        service.orderItems[service.orderItems.length-1].itemName)}}' {{ind}}
-        {{languagesService.languages.stillorder}} </strong> {{item.name}}
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-  </div>
-</form>
-
+</div>

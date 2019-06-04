@@ -52,6 +52,7 @@ public class DbLoader {
 
     add_can("8707762210", UserCan.VIEW_USERS);
     add_can("87077622989", UserCan.VIEW_USERS);
+    add_can("87077622981", UserCan.VIEW_STAFF);
     add_can("87077622988", UserCan.VIEW_ABOUT);
     add_can("87077622986", UserCan.VIEW_ABOUT);
     add_can("87077622986", UserCan.VIEW_ADMIN);

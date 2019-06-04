@@ -38,8 +38,38 @@
          id serial,
          name varchar(100),
          status int,
+         person_number int,
          primary key(id, name)
       )
+    ]]></sql>
+  </changeSet>
+  <changeSet author="pompei" id="create-comments">
+    <sql endDelimiter=";;"><![CDATA[
+      create table comments(
+         id serial,
+         messages text,
+         person_id varchar(100),
+         item_id int,
+         anonym boolean DEFAULT false,
+         date timestamp,
+         primary key(id),
+         foreign key(person_id) references person(id),
+         foreign key(item_id) references item(item_id)
+        )
+    ]]></sql>
+  </changeSet>
+  <changeSet author="pompei" id="create-comments-like">
+    <sql endDelimiter=";;"><![CDATA[
+      create table comments_like(
+         id serial,
+         person_id varchar(200),
+         comments_id int,
+         liked int,
+         disliked int,
+         primary key(person_id,comments_id),
+         foreign key(person_id) references person(id),
+         foreign key(comments_id) references comments(id)
+        )
     ]]></sql>
   </changeSet>
 

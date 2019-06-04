@@ -1,29 +1,47 @@
-<h2 class="text-center">{{languagesService.languages.login}}</h2>
-<div *ngIf="loginService.loading">
-  {{languagesService.languages.loadingwait}}
-</div>
-
-<div *ngIf="!loginService.loading">
-
-  <div class="input-group mb-3" *ngIf="!loginService.personDisplay">
-    <input type="text" class="form-control" placeholder="Recipient's username" [(ngModel)]="loginService.username"
-           aria-label="Recipient's username" aria-describedby="button-addon2">
-    <input type="password" class="form-control" placeholder="Recipient's password" [(ngModel)]="loginService.password"
-           aria-label="Recipient's password" aria-describedby="button-addon2">
-    <div class="input-group-append">
-      <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="loginService.login()">
-        {{languagesService.languages.button}}
-      </button>
-    </div>
+<div class="shadow-sm bg-light rounded col-md-6 offset-md-3">
+  <h3 class="text-center padding-header" >{{languagesService.languages.login.toUpperCase()}}</h3>
+  <div *ngIf="loginService.loading">
+    {{languagesService.languages.loadingwait}}
   </div>
 
-    <div *ngIf="loginService.personDisplay"  class="row">
-      <h5 class="alert text-center col-md-10">Вошли как {{loginService.personDisplay.username}}/{{loginService.personDisplay.fio}}
-      </h5>
-      <button type="button" class="btn  align-middle  btn-outline-danger col-md-1" (click)="loginService.exit()">
-        {{languagesService.languages.exit}}
-      </button>
+  <div *ngIf="!loginService.loading">
+    <div class="container">
+      <div class="col-md-12">
+        <div class="" *ngIf="!loginService.personDisplay">
+          <div class="form-group">
+
+            <input type="number" class="form-control" placeholder=" {{languagesService.languages.username}}"
+                   [(ngModel)]="loginService.username"
+                   (keydown)="deleteE($event)"
+                   aria-label="languagesService.languages.username" aria-describedby="button-addon2">
+          </div>
+          <div class="form-group">
+
+            <input type="password" class="form-control" placeholder=" {{languagesService.languages.password}}"
+                   [(ngModel)]="loginService.password"
+                   aria-label="languagesService.languages.password" aria-describedby="button-addon2">
+          </div>
+          <div class="form-group">
+            <div class="input-group-append flex-row-reverse">
+              <button class="btn btn-outline-secondary "  style="margin-bottom: 10px" type="button" id="button-addon2"
+                      (click)="loginService.login()">
+                {{languagesService.languages.button.toFirstTitleCase()}}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="loginService.personDisplay" class="row">
+          <h5 class="alert text-center col-md-9"> {{languagesService.languages.enterin}}
+            {{loginService.personDisplay.username}}/{{loginService.personDisplay.fio}}
+          </h5>
+          <div class="col-md-2">
+          <!--<button type="button" class="btn btn-danger" style="margin-top: 0.5em" (click)="loginService.exit()">
+            {{languagesService.languages.exit}}
+          </button>-->
+          </div>
+        </div>
+      </div>
     </div>
-
+  </div>
 </div>
-

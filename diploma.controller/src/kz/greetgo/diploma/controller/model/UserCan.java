@@ -8,8 +8,6 @@ public enum UserCan {
   VIEW_ADMIN,
   VIEW_MANAGER,
   VIEW_STAFF,
-  ;
-
   //The following code would be not removed after regenerating
   ///LEAVE_FURTHER
 }

@@ -14,14 +14,15 @@ import {BookingService} from "../shared/booking.service";
 export class OrdersComponent implements OnInit {
   orderList;
   todayTime;
-  personId:number| string;
+  isAuthorized: boolean = false;
+  personId: number | string;
 
   constructor(private service: OrderService,
               private router: Router,
               private toastr: ToastrService,
               public languagesService: LanguagesService,
               public loginService: LoginService,
-              public bookingService:BookingService,) {
+              public bookingService: BookingService,) {
   }
 
   ngOnInit() {
@@ -35,13 +36,14 @@ export class OrdersComponent implements OnInit {
     this.loginService.getPersonDisplay().then(value1 => {
       if (value1.username) {
         this.bookingService.getPersonId(value1.username).then(value => {
+          this.isAuthorized = true
           this.personId = value1.username;
-      this.refreshList(this.personId)
+          this.refreshList(this.personId)
 
         })
       }
       else {
-      this.userForLocalStorage();
+        this.userForLocalStorage();
         this.refreshList(this.personId)
       }
 
@@ -54,14 +56,36 @@ export class OrdersComponent implements OnInit {
   }
 
 
-  refreshList(id:string| number) {
-    this.service.getOrderList(id).then(res => {
+  expectUser() {
+    if (this.loginService.personDisplay && this.loginService.personDisplay.username) {
+      if (this.loginService.canViewWaiter || this.loginService.canViewAdmin) {
+        return true
+      }
+    }
+    return false
 
-      this.orderList = res.body
-      this.showDate()
-      this.sortByKey(this.orderList, "orderNo")
+  }
 
-    });
+
+  refreshList(id: string | number) {
+
+    if (this.expectUser()) {
+      this.service.getOrderList().then(res => {
+        this.orderList = res.body
+
+        this.showDate()
+        this.sortByKey(this.orderList, "orderNo")
+      });
+    }
+    else {
+      this.service.getOrderListById(id).then(res => {
+
+        this.orderList = res.body;
+        this.showDate()
+        this.sortByKey(this.orderList, "orderNo")
+      });
+    }
+
   }
 
   sortByKey(array, key) {

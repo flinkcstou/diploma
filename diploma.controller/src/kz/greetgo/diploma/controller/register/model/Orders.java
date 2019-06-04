@@ -17,7 +17,7 @@ public class Orders {
 
 	public String pMethod;
 
-	public Integer gTotal;
+	public Long gTotal;
 
 	public Integer bookingId;
 

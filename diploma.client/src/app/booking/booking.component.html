@@ -1,60 +1,82 @@
-<form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="form-group">
-        <label>{{languagesService.languages.numberofpeople.toFirstTitleCase()}}</label>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <div class="input-group-text">#</div>
+<div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2">
+
+  <form class="shadow-sm bg-light  p-3 mb-5 rounded" #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
+    <div class="row ">
+      <div class="col-md-10 offset-md-1">
+        <div class="form-group ">
+          <mat-form-field class="mat-display">
+            <label>{{languagesService.languages.reservationtimefrom.toFirstTitleCase()}}</label>
+            <mat-select [(value)]="bookingService.booking.numberOfPeople" (openedChange)="changeNumber()">
+              <mat-option  *ngFor="let count of arrayOfPeople" [value]=count>{{count}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field class="example-full-width mat-display">
+            <label>{{languagesService.languages.reservationtimefrom.toFirstTitleCase()}}</label>
+            <input matInput [matDatepicker]="dp3" [value]="bookingService.booking.recordDateDay"
+                   (dateChange)="selectDateDay($event.value)"
+                   [min]="minDate" [max]="maxDate" (click)="dp3.open()" readonly>
+            <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+            <mat-datepicker #dp3 disabled="false" touchUi="true" startView="year" #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <form class="form-group" (click)="changeTimeFrom()">
+          <label>{{languagesService.languages.reservationtimefrom.toFirstTitleCase()}}</label>
+          <input class="form-control" atp-time-picker [(value)]="bookingService.booking.recordDateFrom" disabled/>
+        </form>
+        <form class="form-group" (click)="changeTimeTo()">
+          <label>{{languagesService.languages.reservationtimeto.toFirstTitleCase()}}</label>
+          <input id="recordTime" class="form-control" atp-time-picker [(value)]="bookingService.booking.recordDateTo"
+                 [ngClass]="{'is-invalid': recordTimeToValidate()}" disabled/>
+
+        </form>
+
+
+
+
+      </div>
+      <div class="col-md-10 offset-md-1">
+
+        <form [formGroup]="userForm">
+          <div class="form-group">
+            <label>{{languagesService.languages.numberoftelephone.toFirstTitleCase()}}</label>
+            <div class="input-group">
+              <input class="form-control" type="text" placeholder="8(___)___-__-__"
+                     [textMask]="{mask: mask}"
+                     formControlName="phoneNumber" [ngClass]="{'is-invalid': userForm.get('phoneNumber').invalid}">
+              <!--userForm.get('phoneNumber').touched-->
+            </div>
           </div>
-          <input name="numberOfPeople" #numberOfPeople="ngModel" [(ngModel)]="bookingService.booking.numberOfPeople"
-                 class="form-control">
+         <!-- <mat-form-field class="mat-display">
+            <input matInput [textMask]="{mask: mask}"
+                   formControlName="phoneNumber" [ngClass]="{'is-invalid': userForm.get('phoneNumber').invalid && !userForm.get('phoneNumber').touched }">
+          </mat-form-field>-->
+
+        </form>
+
+
+        <!--<div class="form-group">
+          <label>{{languagesService.languages.reservationtable.toFirstTitleCase()}}</label>
+          <input type="text" class="form-control" name="tableType" #tableType="ngModel"
+                 [(ngModel)]="bookingService.booking.tableType" READONLY>
+          &lt;!&ndash;<select name="tableType" #tableType="ngModel" [(ngModel)]="bookingService.booking.tableType"
+                  class="form-control">
+            <option *ngFor="let tab of bookingService.table">{{tab}}</option>
+          </select>&ndash;&gt;
+        </div>-->
+
+        <div class="form-group  d-flex bd-highlight mb-3 ">
+          <button type="button" (click)="selectTable()" class="btn btn-primary  mr-auto p-2 bd-highlight">
+            {{languagesService.languages.choosetable}}
+          </button>
+          <button type="submit" class="btn btn-dark ap-2 bd-highlight"><i class="fa fa-database"></i>{{languagesService.languages.submit}}
+          </button>
         </div>
       </div>
-      <div class="form-group">
-        <label>{{languagesService.languages.reservationday.toFirstTitleCase()}}</label>
-        <input name="recordDateDay" #recordDateDay="ngModel" [(ngModel)]="bookingService.booking.recordDateDay"
-               type="date" [value]="bookingService.booking.recordDateDay" class="form-control">
-      </div>
     </div>
-    <div class="col-md-12">
-      <div class="form-group">
-        <label>{{languagesService.languages.reservationtimefrom.toFirstTitleCase()}}</label>
-        <input name="recordDateFrom" #recordDateFrom="ngModel" [(ngModel)]="bookingService.booking.recordDateFrom"
-               type="time" value="13:00:00" class="form-control">
-      </div>
-      <div class="form-group">
-        <label>{{languagesService.languages.reservationtimeto.toFirstTitleCase()}}</label>
-        <input name="recordDateTo" #recordDateTo="ngModel"
-               [(ngModel)]="bookingService.booking.recordDateTo"
-               type="time" [value]="bookingService.booking.recordDateTo" class="form-control">
-      </div>
-    </div>
-    <div class="col-md-12">
-      <div class="form-group">
-        <label>{{languagesService.languages.numberoftelephone.toFirstTitleCase()}}</label>
-        <div class="input-group">
-          <input name="phoneNumber" #phoneNumber="ngModel" [(ngModel)]="bookingService.booking.phoneNumber"
-                 class="form-control" type="number" disabled={{isRegisteredClient}}>
-        </div>
-      </div>
 
-      <div class="form-group">
-        <label>{{languagesService.languages.reservationtable.toFirstTitleCase()}}</label>
-        <select name="tableType" #tableType="ngModel" [(ngModel)]="bookingService.booking.tableType"
-                class="form-control">
-          <option *ngFor="let tab of bookingService.table">{{tab}}</option>
-        </select>
-      </div>
 
-      <div class="form-group">
-        <button type="button" (click)="selectTable()" class="btn btn-primary">Primary</button>
-      </div>
-    </div>
-  </div>
-  <div class="form-group">
-    <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i>{{languagesService.languages.submit}}
-    </button>
-  </div>
+  </form>
 
-</form>
+</div>

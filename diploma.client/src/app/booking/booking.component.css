@@ -1,0 +1,6 @@
+.mat-display{
+  display: block;
+}
+.form-control:disabled{
+  background-color: #fff;
+}

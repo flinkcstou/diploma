@@ -1,0 +1,77 @@
+<div class="water-helper shadow-sm  bg-light p-3 mb-5 rounded">
+  <div class="row clearfix" id="home">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+
+    </div>
+
+  </div>
+<section id="mu-contact">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="mu-contact-area">
+
+        <div class="mu-title">
+          <span class="mu-subtitle">{{languagesService.languages.contactus.toTitleCase()}}</span>
+        </div>
+
+        <div class="mu-contact-content">
+          <div class="row">
+
+            <div class="col-md-6">
+              <div class="mu-contact-left">
+                <!-- Email message div -->
+                <div id="form-messages"></div>
+                <!-- Start contact form -->
+                <form id="ajax-contact" method="post" action="mailer.php">
+                  <div class="form-group">
+                    <label for="name">{{languagesService.languages.yourname.toTitleCase()}}</label>
+                    <input type="text" class="form-control" id="name" name="name" [(ngModel)]="contactNG.name" placeholder=" {{languagesService.languages.justname.toTitleCase()}}" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="email">{{languagesService.languages.emailaddress.toTitleCase()}}</label>
+                    <input type="email" class="form-control" id="email" name="email" [(ngModel)]="contactNG.email" placeholder=" {{languagesService.languages.email.toTitleCase()}}" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="subject">{{languagesService.languages.subject.toTitleCase()}}</label>
+                    <input type="text" class="form-control" id="subject" name="subject" [(ngModel)]="contactNG.subject" placeholder=" {{languagesService.languages.subject.toTitleCase()}}"
+                           required>
+                  </div>
+                  <div class="form-group">
+                    <label for="message">{{languagesService.languages.message.toTitleCase()}}</label>
+                    <textarea class="form-control" id="message" name="message" cols="30" [(ngModel)]="contactNG.messages" rows="10"
+                              placeholder=" {{languagesService.languages.typeyourmessage.toTitleCase()}}" required></textarea>
+                  </div>
+                  <button mat-raised-button (click)="onSubmit()" > {{languagesService.languages.sendmessage.toTitleCase()}} </button>
+                </form>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="mu-contact-right">
+                <div class="mu-contact-widget">
+                  <h3>{{languagesService.languages.officeadresss.toTitleCase()}}</h3>
+                  <p class="mu-about-us-right-contact">{{languagesService.languages.contactustext}}</p>
+                  <address>
+                    <p><i class="fa fa-phone" tel="87077622986"></i> 8 707 762 29 86</p>
+                    <p><i class="fa fa-envelope-o"></i>flincstou@gmail.com </p>
+                    <p><i class="fa fa-map-marker"></i>{{languagesService.languages.address}}</p>
+                  </address>
+                </div>
+                <div class="mu-contact-widget">
+                  <h3>{{languagesService.languages.openhours.toTitleCase()}}</h3>
+                  <address>
+                    <p><span class="col-md-3">{{languagesService.languages.monday.toTitleCase()}} - {{languagesService.languages.friday.toTitleCase()}}</span><a class="col-md-3">{{languagesService.languages.goodmorning}}</a> </p>
+                    <p><span class="col-md-3">{{languagesService.languages.saturday.toTitleCase()}}</span>{{languagesService.languages.launch}}</p>
+                    <p><span class="col-md-3">{{languagesService.languages.sunday.toTitleCase()}}</span>{{languagesService.languages.evening}}</p>
+                  </address>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>

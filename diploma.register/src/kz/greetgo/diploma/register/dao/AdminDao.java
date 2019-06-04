@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface AdminDao {
 
-	@Insert("insert into item(name, price) " +
-		"values (#{item.name}, #{item.price})")
+	@Insert("insert into item(name, price, category, description) " +
+		"values (#{item.name}, #{item.price}, #{item.image}, #{item.description})")
 	void insertItem(@Param("item") Item item);
 
 	@Select("select item_id as itemId, name as name, price as price from item where name = #{item.name}")
