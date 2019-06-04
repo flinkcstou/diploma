@@ -110,7 +110,7 @@ public class TelegramRegisterImpl extends TelegramLongPollingBot implements Tele
 //				return SortTypeAndName(telegramMenus);
 			} else
 			{
-				return "Неправильный формат даты.\nПример формат даты: 	\nДля первого апреля : \n'04-01'.";
+				return "Неправильный формат даты.\nПример формат даты: 	\nДля первого апреля : \n'06-01'.";
 			}
 
 	}
@@ -277,7 +277,7 @@ public class TelegramRegisterImpl extends TelegramLongPollingBot implements Tele
 		List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
 
 		List<InlineKeyboardButton> rowInline1 = new ArrayList<>();
-		rowInline1.add(new InlineKeyboardButton().setText("E-Order").setUrl("https://diplomaproject.info/e-order"));
+		rowInline1.add(new InlineKeyboardButton().setText("E-Order").setUrl("https://diplomaproject.info"));
 		rowsInline.add(rowInline1);
 		markupInline.setKeyboard(rowsInline);
 		try

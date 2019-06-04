@@ -166,7 +166,7 @@ public class DbTelegramMenuLoader {
 									{
 										day = "" + (loopDay + 2);
 									}
-								String fullDate = "2019-04-" + day;
+								String fullDate = "2019-06-" + day;
 
 								Integer rand = (int) (1 + Math.random() * 33);
 								String randFoodId = Integer.toString(rand);
