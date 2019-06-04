@@ -1,6 +1,5 @@
 package kz.greetgo.diploma.register.test.dao;
 
-import javafx.scene.control.Tab;
 import kz.greetgo.diploma.controller.register.model.Booking;
 import kz.greetgo.diploma.controller.register.model.Table;
 import org.apache.ibatis.annotations.Insert;

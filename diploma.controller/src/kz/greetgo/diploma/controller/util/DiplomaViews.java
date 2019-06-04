@@ -2,6 +2,7 @@ package kz.greetgo.diploma.controller.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kz.greetgo.depinject.core.BeanGetter;
+import static kz.greetgo.diploma.controller.util.ParSessionNames.PERSON_ID;
 import kz.greetgo.mvc.annotations.ParSession;
 import kz.greetgo.mvc.annotations.ToJson;
 import kz.greetgo.mvc.annotations.ToXml;
@@ -169,7 +170,7 @@ public abstract class DiplomaViews implements Views {
    */
   @Override
   public Object getSessionParameter(SessionParameterGetter.ParameterContext context, RequestTunnel tunnel) {
-    if ("personId".equals(context.parameterName())) {
+    if (PERSON_ID.equals(context.parameterName())) {
       if (context.expectedReturnType() != String.class) throw new SecurityError("personId must be a string");
 
       SessionHolder sessionHolder = authRegister.get().getSession();

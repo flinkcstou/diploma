@@ -13,6 +13,7 @@ dependencies {
   compile group: 'commons-lang', name: 'commons-lang', version: '2.6'
 
   testCompile "kz.greetgo.depinject:greetgo.depinject.testng:$depinjectVersion"
+  compile "com.google.firebase:firebase-admin:$firebaseAdminVersion"
 }
 
 test { options.suites("test_resources/AllTests.xml") }
