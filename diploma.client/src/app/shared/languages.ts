@@ -140,6 +140,12 @@ export class Languages {
     contactmessageemtpty: "Некоторые поля пусты",
     contactmessagefull: "Успешно доставлено, спасибо за ваше внимание",
     bookingInvalid: "Неправильно заполнены поля",
+    addproduct: "Добавить продукт",
+    editproducts: "Если вы изменили  или удалили свой заказ , то для обновления данных нужно нажать на кнопку отправить",
+    gotocomment: "Перейти к комментарию",
+    gotofood: "Блюдо: ",
+    gotoauthor: "Автор: ",
+    gotocomments: "Комментарии",
 
   };
   public EN_LANGUAGE = {
@@ -280,7 +286,12 @@ export class Languages {
     contactmessageemtpty: "Some fields are empty",
     contactmessagefull: "Successfully delivered, thank you for your attention.",
     bookingInvalid: "Incorrectly filled fields",
+    addproduct: "Add Product",
+    editproducts: "If you have changed or deleted your order, then to update the data you need to click on the send button",
 
-
+    gotocomment: "Go to comment",
+    gotocomments: "Comments",
+    gotofood: "Food:: ",
+    gotoauthor: "Author: ",
   }
 }

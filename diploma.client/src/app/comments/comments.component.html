@@ -1,11 +1,10 @@
 <div class="comments-color" id="commentPage">
   <div class="position-fixed-comment">
     <a href="#downpage" class=" btn  fixed-scroll-position color-comments"
-       *ngIf="isCommentMessage && !loginService.canViewWaiter && !loginService.canViewAdmin " (click)="scrollDown()">Go
-      to comment <i
+       *ngIf="isCommentMessage && !loginService.canViewWaiter && !loginService.canViewAdmin " (click)="scrollDown()">{{languagesService.languages.gotocomment}}<i
         class="fa fa-chevron-down" aria-hidden="true"></i></a>
   </div>
-  <div class="text-center " style="margin-bottom: 50px"><h3>Comments</h3></div>
+  <div class="text-center " style="margin-bottom: 50px"><h3>{{languagesService.languages.gotocomments}}:</h3></div>
 
   <div class="" *ngFor="let comment of commentsWithExtendsModels">
     <div class="col-md-12  bg-light shadow-sm rounded row padding-commments ">
@@ -14,11 +13,11 @@
         <div class="col-md-12 offset-md-1 ">
           <h6 class="text-muted time col-md-12"><span>{{comment.dateFormatter}}</span></h6>
           <div class="title col-md-12">
-            <a><b class="title border">food:</b></a>
+            <a><b class="title border">{{languagesService.languages.gotofood}}</b></a>
             {{comment.itemName}}
           </div>
           <div class="title col-md-12 ">
-            <a><b class="title border">author:</b></a>
+            <a><b class="title border">{{languagesService.languages.gotoauthor}}</b></a>
             {{comment.personName}}
           </div>
           <a [class.btn-success]="comment.isLiked"

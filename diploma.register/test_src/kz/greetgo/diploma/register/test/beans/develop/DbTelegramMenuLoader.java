@@ -108,41 +108,41 @@ public class DbTelegramMenuLoader {
 
 	private void loadFoodList() {
 
-		addFoodList(takeDefaultIdIncreased(), "Борщ", "1","500 tenge");
-		addFoodList(increaseIdincreased(), "Ботамоти", "1","2000 tenge");
-		addFoodList(increaseIdincreased(), "Ботвинья", "1","500 tenge");
-		addFoodList(increaseIdincreased(), "Боттарга", "1","2050 tenge");
-		addFoodList(increaseIdincreased(), "Боярышниковые хлопья", "1","500 tenge");
-		addFoodList(increaseIdincreased(), "Аммицу", "1","500 tenge");
-		addFoodList(increaseIdincreased(), "Зельц", "1","950 tenge");
-		addFoodList(increaseIdincreased(), "Гренки", "1","500 tenge");
-		addFoodList(increaseIdincreased(), "Свинина с овощами, тушеная в сливках", "2","500 tenge");
-		addFoodList(increaseIdincreased(), "Картофель, запеченный в мундире", "2","750 tenge");
-		addFoodList(increaseIdincreased(), "Макароны, запеченные с помидорами, под сыром", "2","500 tenge");
-		addFoodList(increaseIdincreased(), "Азу по‑татарски", "2","500 tenge");
-		addFoodList(increaseIdincreased(), "Крылышки чили", "2","500 tenge");
-		addFoodList(increaseIdincreased(), "Грудка куриная гриль на шпажках", "2","500 tenge");
-		addFoodList(increaseIdincreased(), "Фрикадельки в сметанном соусе", "2","500 tenge");
-		addFoodList(increaseIdincreased(), "Брокколи отварная", "2","500 tenge");
-		addFoodList(increaseIdincreased(), "Индийские сладости", "3","500 tenge");
-		addFoodList(increaseIdincreased(), "Рождественский пудинг", "3","1500 tenge");
-		addFoodList(increaseIdincreased(), "Дульсе-де-лече", "3","500 tenge");
-		addFoodList(increaseIdincreased(), "Болу рей (Португалия)", "3","500 tenge");
-		addFoodList(increaseIdincreased(), "Болу рей (Португалия)", "4","500 tenge");
-		addFoodList(increaseIdincreased(), "Айва Манго", "4","500 tenge");
-		addFoodList(increaseIdincreased(), "Красный чай", "4","500 tenge");
-		addFoodList(increaseIdincreased(), "Черный чай", "4","500 tenge");
-		addFoodList(increaseIdincreased(), "Чай с молоком", "4","500 tenge");
-		addFoodList(increaseIdincreased(), "Клюква мята", "4","2000 tenge");
-		addFoodList(increaseIdincreased(), "Медовый чай", "4","500 tenge");
-		addFoodList(increaseIdincreased(), "Облепиховый чай", "4","500 tenge");
-		addFoodList(increaseIdincreased(), "Массиль или обычный кальянный табак", "5","5500 tenge");
-		addFoodList(increaseIdincreased(), "Томбак", "5","2000 tenge");
-		addFoodList(increaseIdincreased(), "Доха", "5","4500 tenge");
-		addFoodList(increaseIdincreased(), "Layalina", "5","2000 tenge");
-		addFoodList(increaseIdincreased(), "Al Fakher", "5","3500 tenge");
-		addFoodList(increaseIdincreased(), "Nakhla", "5","2500 tenge");
-		addFoodList(increaseIdincreased(), "Starbuzz", "5","2600 tenge");
+		addFoodList(takeDefaultIdIncreased(), "Борщ", "1","500 тенге");
+		addFoodList(increaseIdincreased(), "Ботамоти", "1","2000 тенге");
+		addFoodList(increaseIdincreased(), "Ботвинья", "1","500 тенге");
+		addFoodList(increaseIdincreased(), "Боттарга", "1","2050 тенге");
+		addFoodList(increaseIdincreased(), "Боярышниковые хлопья", "1","500 тенге");
+		addFoodList(increaseIdincreased(), "Аммицу", "1","500 тенге");
+		addFoodList(increaseIdincreased(), "Зельц", "1","950 тенге");
+		addFoodList(increaseIdincreased(), "Гренки", "1","500 тенге");
+		addFoodList(increaseIdincreased(), "Свинина с овощами, тушеная в сливках", "2","500 тенге");
+		addFoodList(increaseIdincreased(), "Картофель, запеченный в мундире", "2","750 тенге");
+		addFoodList(increaseIdincreased(), "Макароны, запеченные с помидорами, под сыром", "2","500 тенге");
+		addFoodList(increaseIdincreased(), "Азу по‑татарски", "2","500 тенге");
+		addFoodList(increaseIdincreased(), "Крылышки чили", "2","500 тенге");
+		addFoodList(increaseIdincreased(), "Грудка куриная гриль на шпажках", "2","500 тенге");
+		addFoodList(increaseIdincreased(), "Фрикадельки в сметанном соусе", "2","500 тенге");
+		addFoodList(increaseIdincreased(), "Брокколи отварная", "2","500 тенге");
+		addFoodList(increaseIdincreased(), "Индийские сладости", "3","500 тенге");
+		addFoodList(increaseIdincreased(), "Рождественский пудинг", "3","1500 тенге");
+		addFoodList(increaseIdincreased(), "Дульсе-де-лече", "3","500 тенге");
+		addFoodList(increaseIdincreased(), "Болу рей (Португалия)", "3","500 тенге");
+		addFoodList(increaseIdincreased(), "Болу рей (Португалия)", "4","500 тенге");
+		addFoodList(increaseIdincreased(), "Айва Манго", "4","500 тенге");
+		addFoodList(increaseIdincreased(), "Красный чай", "4","500 тенге");
+		addFoodList(increaseIdincreased(), "Черный чай", "4","500 тенге");
+		addFoodList(increaseIdincreased(), "Чай с молоком", "4","500 тенге");
+		addFoodList(increaseIdincreased(), "Клюква мята", "4","2000 тенге");
+		addFoodList(increaseIdincreased(), "Медовый чай", "4","500 тенге");
+		addFoodList(increaseIdincreased(), "Облепиховый чай", "4","500 тенге");
+		addFoodList(increaseIdincreased(), "Массиль или обычный кальянный табак", "5","5500 тенге");
+		addFoodList(increaseIdincreased(), "Томбак", "5","2000 тенге");
+		addFoodList(increaseIdincreased(), "Доха", "5","4500 тенге");
+		addFoodList(increaseIdincreased(), "Layalina", "5","2000 тенге");
+		addFoodList(increaseIdincreased(), "Al Fakher", "5","3500 тенге");
+		addFoodList(increaseIdincreased(), "Nakhla", "5","2500 тенге");
+		addFoodList(increaseIdincreased(), "Starbuzz", "5","2600 тенге");
 	}
 
 	private void loadFoodSchedule() throws ParseException {

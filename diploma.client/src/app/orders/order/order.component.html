@@ -137,28 +137,27 @@
 
 
             <mat-card-content>
-              <h5 style="text-align: center">Название:</h5>
+              <h5 style="text-align: center">{{languagesService.languages.productname}}:</h5>
               <mat-card-title class="text-danger" style="text-align: center">{{item.name}}
               </mat-card-title>
-              <mat-card-title style="text-align: center;"><h5>Цена: <i class="text-success">{{item.price}}</i></h5>
+              <mat-card-title style="text-align: center;"><h5>{{languagesService.languages.price}}: <i class="text-success">{{item.price}}</i></h5>
               </mat-card-title>
               <p class="hide-mat-md">
                 {{item.description}}
               </p>
               <form class="example-form" style="font-size: 18px;">
                 <mat-form-field class="mat-display">
-                  <input matInput type="number" placeholder="Quantity:" name="itemQuantaty"
+                  <input matInput type="number" placeholder="{{languagesService.languages.quantity}}:" name="itemQuantaty"
                          [(ngModel)]="item.orderItem.quantity" (keyup)="updateTotal(item, $event)">
                 </mat-form-field>
                 <mat-form-field class="mat-display">
-                  <input matInput type="number" placeholder="Total:" [value]="item.orderItem.total" disabled>
+                  <input matInput type="number" placeholder="{{languagesService.languages.total}}:" [value]="item.orderItem.total" disabled>
                 </mat-form-field>
               </form>
             </mat-card-content>
             <mat-card-actions>
               <button mat-raised-button color="warn" class="mat-display" style="width: 100%"
-                      (click)="submitOrderItem(item)">Add Product
-              </button>
+                      (click)="submitOrderItem(item)">{{languagesService.languages.addproduct}}</button>
             </mat-card-actions>
           </mat-card>
         </div>
@@ -231,7 +230,7 @@
         </div>
         <div *ngIf="isChangeOrder" class="alert alert-warning alert-dismissible fade show" id="shangeOrderAlert"
              role="alert">
-          <p> если вы изменили свой заказ или удалили, то для обновления данных нужно нажать на кнопку отправить </p>
+          <p> {{languagesService.languages.editproducts}} </p>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
