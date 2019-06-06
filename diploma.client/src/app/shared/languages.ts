@@ -295,6 +295,6 @@ export class Languages {
     gotocomments: "Comments",
     gotofood: "Food:: ",
     gotoauthor: "Author: ",
-    reserve: "Reserve",
+    reserve: "Book",
   }
 }
